@@ -874,10 +874,10 @@ const sds: Policy = {
  *   - NIKs are matched against the DPT via an external lookup service
  *     — apps/mobile/src/api/dpt.ts.
  *
- * CONFIRM BEFORE PUBLISHING: the DPP PAN contact block is taken from KPU party
- * registration data and PAN's public listings, not from the client. Verify it
- * with the party — this is the address members are told to send rights and
- * deletion requests to, so it has to be one that is actually monitored.
+ * The surel on the contact block is confirmed monitored by the client, and is
+ * the operative channel for rights and deletion requests. The postal address
+ * comes from KPU party registration data rather than the party directly —
+ * worth a glance if PAN ever moves.
  */
 const simpan: Policy = {
   slug: 'simpan',
@@ -1041,6 +1041,7 @@ const simpan: Policy = {
         'Google membaca gambar tersebut dan mengembalikan datanya dalam bentuk teks: NIK, nama, tempat dan tanggal lahir, jenis kelamin, alamat, RT/RW, kelurahan, kecamatan, kabupaten, provinsi, agama, status perkawinan, pekerjaan, kewarganegaraan, dan golongan darah.',
         'Hasil pembacaan ditampilkan kepada Anda untuk <strong>diperiksa dan diperbaiki</strong> sebelum disimpan. Hasil pemindaian tidak pernah langsung menjadi data akhir tanpa persetujuan Anda.',
         'Pemrosesan oleh Google berlangsung di luar wilayah Indonesia dan tunduk pada ketentuan layanan Google atas antarmuka pemrogramannya.',
+        'Kami menggunakan layanan tersebut pada <strong>tingkat berbayar</strong>. Berdasarkan ketentuan Google untuk layanan berbayar, gambar yang dikirim maupun hasil pembacaannya <strong>tidak digunakan untuk melatih atau menyempurnakan model Google</strong>.',
         '<strong>Fitur ini opsional.</strong> Anda dapat melewati pemindaian dan mengisi seluruh formulir secara manual; foto KTP Anda tetap disimpan sebagai lampiran verifikasi, tetapi tidak dikirim ke layanan AI.',
       ],
       note: 'Foto KTP yang Anda unggah tetap disimpan pada penyimpanan berkas kami sebagai bukti verifikasi keanggotaan, terpisah dari proses pemindaian di atas.',
@@ -1133,7 +1134,7 @@ const simpan: Policy = {
         },
         {
           title: 'Google (Gemini API)',
-          body: 'Menerima foto KTP untuk dibaca secara otomatis, sebagaimana dijelaskan pada bagian pemindaian KTP di atas. Google tidak menerima data keanggotaan Anda yang lain.',
+          body: 'Menerima foto KTP untuk dibaca secara otomatis, sebagaimana dijelaskan pada bagian pemindaian KTP di atas. Layanan digunakan pada tingkat berbayar, sehingga gambar tersebut tidak dipakai untuk melatih model Google. Google tidak menerima data keanggotaan Anda yang lain.',
         },
         {
           title: 'Sentry',
@@ -1208,6 +1209,10 @@ const simpan: Policy = {
       note: 'Ajukan permintaan melalui kontak pada bagian akhir halaman ini. Kami akan menanggapi paling lambat 3×24 jam sejak permintaan diterima, sesuai Pasal 21 UU PDP. Apabila Anda tidak puas dengan tanggapan kami, Anda dapat mengadu kepada lembaga pelindungan data pribadi di bawah Kementerian Komunikasi dan Digital.',
     },
 
+    // Describes the surel route only, because that is the only route that
+    // exists today — `permintaan_hapus_akun` is declared in the e-partai schema
+    // but nothing reads or writes it. When the in-app request lands, add it
+    // here as the primary path: Play wants an in-app route *and* this URL.
     {
       id: 'hapus-akun',
       heading: 'Menghapus akun dan data Anda',
@@ -1257,6 +1262,7 @@ const simpan: Policy = {
             'Jl. Senopati No. 113, Kebayoran Baru, Jakarta Selatan, DKI Jakarta 12190',
             'dpp.partaiamanatnasional@gmail.com',
             '+62 21 7884 8469',
+            'www.amanat-nasional.com',
           ],
         },
         {
