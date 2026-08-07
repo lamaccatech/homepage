@@ -1,0 +1,73 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import { policies } from '../../data/privacy';
+---
+
+<Base
+  title="App privacy policies"
+  description="Privacy policies for the mobile applications PT Lamacca Kreatif Solusi builds and operates on behalf of its clients."
+  transparentHeader
+>
+  <PageHero
+    eyebrow="Legal"
+    title="App privacy&nbsp;policies"
+    lead="We publish a privacy policy for every app we build and operate on a client's behalf. Each one names the client as data controller and describes exactly what that app collects."
+  />
+
+  <section class="shell pb-24 lg:pb-32">
+    <ul class="grid gap-5 md:grid-cols-2">
+      {
+        policies.map((policy, i) => (
+          <li data-reveal data-reveal-delay={`${0.06 * i}`}>
+            <a
+              href={`/privacy/${policy.slug}`}
+              class="card group flex h-full flex-col p-8 transition-transform duration-500 ease-[var(--ease-out-expo)] hover:-translate-y-1"
+            >
+              <p class="eyebrow text-brand-600">{policy.country}</p>
+
+              <h2 class="display-3 mt-4 text-ink">{policy.app}</h2>
+
+              <p class="mt-4 flex-1 text-sm leading-relaxed text-ink-3">
+                {policy.summary}
+              </p>
+
+              <dl class="mt-7 space-y-2 border-t border-ink/10 pt-6 text-xs">
+                <div class="flex gap-2">
+                  <dt class="w-24 shrink-0 font-semibold text-ink-4">Controller</dt>
+                  <dd class="text-ink-2">{policy.controller.name}</dd>
+                </div>
+                <div class="flex gap-2">
+                  <dt class="w-24 shrink-0 font-semibold text-ink-4">Android</dt>
+                  <dd class="font-mono text-ink-2">{policy.androidPackage}</dd>
+                </div>
+                <div class="flex gap-2">
+                  <dt class="w-24 shrink-0 font-semibold text-ink-4">Updated</dt>
+                  <dd class="text-ink-2">{policy.updated}</dd>
+                </div>
+              </dl>
+
+              <span class="mt-7 inline-flex items-center gap-2 text-sm font-semibold text-ink">
+                Read the policy
+                <svg
+                  class="h-3.5 w-3.5 transition-transform duration-400 ease-[var(--ease-out-expo)] group-hover:translate-x-1"
+                  viewBox="0 0 16 16"
+                  fill="none"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M2 8h11m0 0L9 4m4 4-4 4"
+                    stroke="currentColor"
+                    stroke-width="1.8"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </span>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+</Base>

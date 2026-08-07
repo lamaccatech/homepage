@@ -108,7 +108,10 @@ const year = new Date().getFullYear();
       class="mt-16 flex flex-col gap-4 border-t border-white/10 pt-8 sm:flex-row sm:items-center sm:justify-between"
     >
       <p class="text-xs text-paper/45">
-        © {year} {site.legalName}. All rights reserved.
+        © {year} {site.legalName}. All rights reserved. · <a
+          href="/privacy"
+          class="transition-colors duration-300 hover:text-brand-400">App privacy policies</a
+        >
       </p>
       <p class="text-xs text-paper/45">
         Built in Jakarta · <a

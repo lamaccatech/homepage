@@ -1,0 +1,225 @@
+---
+import type { GetStaticPaths } from 'astro';
+import Base from '../../layouts/Base.astro';
+import LampMark from '../../components/brand/LampMark.astro';
+import { policies } from '../../data/privacy';
+
+export const getStaticPaths = (() => {
+  return policies.map((policy) => ({
+    params: { slug: policy.slug },
+    props: {
+      policy,
+      // Each policy links across to its sibling country.
+      other: policies.find((p) => p.slug !== policy.slug)!,
+    },
+  }));
+}) satisfies GetStaticPaths;
+
+const { policy, other } = Astro.props;
+---
+
+<Base
+  title={`${policy.app} — Privacy Policy`}
+  description={policy.summary}
+  transparentHeader
+>
+  <article>
+    <header class="relative overflow-hidden pb-14 pt-36 sm:pt-44">
+      <div class="pointer-events-none absolute inset-0 -z-10" aria-hidden="true">
+        <div
+          class="blob absolute -left-[12%] -top-[30%] h-[34rem] w-[34rem] rounded-full bg-brand-400/14 blur-[110px]"
+        >
+        </div>
+        <div
+          class="blob absolute -right-[6%] -top-[20%] h-[28rem] w-[28rem] rounded-full bg-amber/16 blur-[110px]"
+          style="animation-delay: -9s"
+        >
+        </div>
+        <div class="bg-noise absolute inset-0 opacity-[0.03] mix-blend-multiply"></div>
+      </div>
+
+      <div class="shell">
+        <p class="eyebrow flex items-center gap-2.5 text-brand-600" data-reveal>
+          <span class="inline-block h-1.5 w-1.5 rounded-full bg-current"></span>
+          Privacy policy · {policy.country}
+        </p>
+
+        <h1 class="display-1 mt-6 max-w-4xl text-ink" data-reveal data-reveal-delay="0.06">
+          {policy.app}
+        </h1>
+
+        <p
+          class="mt-8 max-w-2xl text-lg leading-relaxed text-ink-3"
+          data-reveal
+          data-reveal-delay="0.12"
+        >
+          {policy.summary}
+        </p>
+
+        <ul class="mt-9 flex flex-wrap gap-2.5" data-reveal data-reveal-delay="0.18">
+          <li
+            class="rounded-full border border-ink/12 bg-white/60 px-4 py-2 text-xs font-semibold text-ink-2 backdrop-blur"
+          >
+            Effective {policy.effective}
+          </li>
+          <li
+            class="rounded-full border border-ink/12 bg-white/60 px-4 py-2 text-xs font-semibold text-ink-2 backdrop-blur"
+          >
+            Last updated {policy.updated}
+          </li>
+          <li
+            class="rounded-full border border-ink/12 bg-white/60 px-4 py-2 font-mono text-xs font-semibold text-ink-2 backdrop-blur"
+          >
+            {policy.androidPackage}
+          </li>
+        </ul>
+      </div>
+    </header>
+
+    {/* At-a-glance summary — the four things people most want to know. */}
+    <section class="shell pb-16">
+      <ul class="grid gap-4 sm:grid-cols-2">
+        {
+          policy.highlights.map((h, i) => (
+            <li
+              class="card p-7"
+              data-reveal
+              data-reveal-delay={`${0.06 * i}`}
+            >
+              <h2 class="text-base font-bold text-ink">{h.label}</h2>
+              <p class="mt-3 text-sm leading-relaxed text-ink-3">{h.body}</p>
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+
+    <div class="shell grid gap-14 pb-24 lg:grid-cols-[16rem_1fr] lg:gap-16 lg:pb-32">
+      {/* Sticky contents rail */}
+      <nav class="lg:sticky lg:top-28 lg:self-start" aria-label="Sections">
+        <h2 class="text-xs font-bold uppercase tracking-[0.16em] text-ink-4">
+          Contents
+        </h2>
+        <ol class="mt-5 space-y-2.5 border-l border-ink/10 pl-4">
+          {
+            policy.sections.map((section, i) => (
+              <li>
+                <a
+                  href={`#${section.id}`}
+                  class="block text-sm leading-snug text-ink-3 transition-colors duration-300 hover:text-brand-600"
+                >
+                  <span class="mr-1.5 font-mono text-xs text-ink-4">
+                    {String(i + 1).padStart(2, '0')}
+                  </span>
+                  {section.heading}
+                </a>
+              </li>
+            ))
+          }
+        </ol>
+      </nav>
+
+      <div class="max-w-3xl">
+        {
+          policy.sections.map((section, i) => (
+            <section id={section.id} class="scroll-mt-28 border-t border-ink/10 pt-10 first:border-0 first:pt-0 [&+section]:mt-14">
+              <h2 class="display-3 text-ink">
+                <span class="mr-3 font-mono text-base font-semibold text-ink-4 align-middle">
+                  {String(i + 1).padStart(2, '0')}
+                </span>
+                {section.heading}
+              </h2>
+
+              {section.body?.map((paragraph) => (
+                <p class="mt-5 leading-relaxed text-ink-2" set:html={paragraph} />
+              ))}
+
+              {section.list && (
+                <ul class="mt-6 space-y-3.5">
+                  {section.list.map((item) => (
+                    <li class="flex gap-3.5 leading-relaxed text-ink-2">
+                      <span
+                        class="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-brand-600"
+                        aria-hidden="true"
+                      />
+                      <span set:html={item} />
+                    </li>
+                  ))}
+                </ul>
+              )}
+
+              {section.groups && (
+                <div class="mt-8 space-y-6">
+                  {section.groups.map((group) => (
+                    <div class="rounded-2xl border border-ink/10 bg-white/60 p-6">
+                      <h3 class="text-sm font-bold text-ink">{group.title}</h3>
+                      {group.body && (
+                        <p class="mt-2 text-sm leading-relaxed text-ink-3" set:html={group.body} />
+                      )}
+                      {group.items && (
+                        <ul class="mt-4 space-y-2.5">
+                          {group.items.map((item) => (
+                            <li class="flex gap-3 text-sm leading-relaxed text-ink-2">
+                              <span
+                                class="mt-2 h-1 w-1 shrink-0 rounded-full bg-ink-4"
+                                aria-hidden="true"
+                              />
+                              <span set:html={item} />
+                            </li>
+                          ))}
+                        </ul>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              {section.note && (
+                <p
+                  class="mt-7 rounded-2xl bg-brand-600/[0.06] px-6 py-5 text-sm leading-relaxed text-ink-2"
+                  set:html={section.note}
+                />
+              )}
+            </section>
+          ))
+        }
+      </div>
+    </div>
+
+    {/* Cross-link to the sibling country's policy */}
+    <section class="relative overflow-hidden bg-ink text-paper">
+      <LampMark
+        class="pointer-events-none absolute -bottom-20 -right-12 h-[22rem] w-auto text-white/[0.035]"
+      />
+      <div class="shell relative py-16 lg:py-20">
+        <p class="eyebrow text-brand-300">Other markets</p>
+        <h2 class="display-3 mt-4 max-w-2xl text-paper">
+          Looking for the {other.country} app?
+        </h2>
+        <p class="mt-5 max-w-xl leading-relaxed text-paper/60">
+          {other.app} is a separate application operated by {other.controller.name},
+          with its own privacy policy.
+        </p>
+        <a
+          href={`/privacy/${other.slug}`}
+          class="group mt-8 inline-flex items-center gap-2.5 rounded-full bg-paper px-6 py-3.5 text-sm font-semibold text-ink transition-colors duration-300 hover:bg-white"
+        >
+          Read the {other.app} policy
+          <svg
+            class="h-3.5 w-3.5 transition-transform duration-400 ease-[var(--ease-out-expo)] group-hover:translate-x-1"
+            viewBox="0 0 16 16"
+            fill="none"
+            aria-hidden="true"
+          >
+            <path
+              d="M2 8h11m0 0L9 4m4 4-4 4"
+              stroke="currentColor"
+              stroke-width="1.8"
+              stroke-linecap="round"
+              stroke-linejoin="round"></path>
+          </svg>
+        </a>
+      </div>
+    </section>
+  </article>
+</Base>
