@@ -54,12 +54,12 @@ export const work: WorkItem[] = [
     slug: 'adv-life',
     title: 'ADV-Life — Agriculture Field Operations',
     shortTitle: 'ADV-Life',
-    clients: ['PT Advansia Indotani'],
+    clients: ['PT Advansia Indotani', 'Advansia Sdn Bhd'],
     sector: 'Corporate',
     year: '2023',
     platforms: ['Web App', 'Mobile App'],
     summary:
-      'A web and Android platform for Advansia, a multinational agribusiness operating across Indonesia and Malaysia — coordinating field operations, sales activity, and distribution networks between employees, distributors, and resellers, with monthly tracking of Customer Executive results.',
+      'A web and Android platform serving both Advansia entities — PT Advansia Indotani in Indonesia and Advansia Sdn Bhd in Malaysia — coordinating field operations, sales activity, and distribution networks between employees, distributors, and resellers, with monthly tracking of Customer Executive results across both markets.',
     scope: [
       'Employee & field staff management',
       'Distributor & reseller database',

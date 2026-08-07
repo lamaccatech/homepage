@@ -79,6 +79,7 @@ export const clients: string[] = [
   'MN KAHMI',
   'Perdatin Jaya',
   'PT Advansia Indotani',
+  'Advansia Sdn Bhd',
   'PT Sekaiichi Dwiputra Service',
   'PT Prima Nusantara Services',
   'Kemenpora RI',
