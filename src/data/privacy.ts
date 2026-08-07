@@ -860,7 +860,416 @@ const sds: Policy = {
   ],
 };
 
-export const policies: Policy[] = [indonesia, malaysia, sds];
+/**
+ * simPAN — written from the app itself (`~/code/e-partai`, `apps/mobile`), not
+ * adapted from an existing document. In Indonesian because the audience is PAN
+ * members nationwide, many of whom the codebase itself describes as "relawan
+ * yang masih gagap teknologi"; UU PDP transparency is not served by an English
+ * notice here.
+ *
+ * Two disclosures below are unusual and load-bearing, so do not trim them
+ * without checking the code first:
+ *   - KTP photographs are sent to Google Gemini (`gemini-2.5-flash`) for OCR
+ *     — libs/api/identity/src/lib/identity.service.ts.
+ *   - NIKs are matched against the DPT via an external lookup service
+ *     — apps/mobile/src/api/dpt.ts.
+ *
+ * CONFIRM BEFORE PUBLISHING: the DPP PAN contact block is taken from KPU party
+ * registration data and PAN's public listings, not from the client. Verify it
+ * with the party — this is the address members are told to send rights and
+ * deletion requests to, so it has to be one that is actually monitored.
+ */
+const simpan: Policy = {
+  slug: 'simpan',
+  app: 'simPAN',
+  country: 'Indonesia',
+  lang: 'id',
+  androidPackage: 'or.id.pan.simpan.simpan',
+  iosBundleId: 'or.id.pan.simpan',
+  controller: {
+    name: 'Partai Amanat Nasional (DPP PAN)',
+    address: 'Jl. Senopati No. 113, Kebayoran Baru, Jakarta Selatan, DKI Jakarta 12190, Indonesia',
+    email: 'dpp.partaiamanatnasional@gmail.com',
+    phone: '+62 21 7884 8469',
+  },
+  effective: '7 Agustus 2026',
+  updated: '7 Agustus 2026',
+  summary:
+    'Bagaimana Partai Amanat Nasional mengumpulkan, menggunakan, membagikan, dan melindungi data pribadi Anda di aplikasi simPAN.',
+
+  highlights: [
+    {
+      label: 'Data keanggotaan partai ditangani secara khusus',
+      body: 'Keanggotaan Anda di simPAN menunjukkan afiliasi politik Anda. Data ini hanya dapat diakses oleh pengurus partai yang berwenang sesuai tingkat wilayahnya, dan tidak pernah dibagikan untuk tujuan komersial.',
+    },
+    {
+      label: 'Aplikasi tidak meminta akses lokasi',
+      body: 'simPAN tidak meminta izin lokasi sama sekali. Aplikasi tidak dapat membaca posisi Anda, baik saat digunakan maupun saat ditutup.',
+    },
+    {
+      label: 'Foto KTP diproses oleh layanan AI Google',
+      body: 'Untuk mempercepat pengisian formulir, foto KTP Anda dikirim ke layanan Google Gemini agar datanya terbaca otomatis. Anda dapat memilih mengisi formulir secara manual.',
+    },
+    {
+      label: 'Tanpa iklan, tanpa penjualan data',
+      body: 'Kami tidak menjual atau menyewakan data pribadi Anda, tidak membagikannya kepada pialang data, dan aplikasi ini tidak memuat iklan maupun teknologi pelacakan iklan.',
+    },
+  ],
+
+  sections: [
+    {
+      id: 'tentang',
+      heading: 'Tentang kebijakan ini',
+      body: [
+        'Kebijakan Privasi ini menjelaskan bagaimana data pribadi diperlakukan di dalam <strong>simPAN</strong>, aplikasi keanggotaan dan kaderisasi Partai Amanat Nasional.',
+        'Kebijakan ini berlaku untuk aplikasi seluler simPAN serta sistem pendukungnya, termasuk dasbor administrasi yang digunakan pengurus partai untuk memverifikasi dan mengelola data keanggotaan. Selanjutnya keduanya disebut “Aplikasi”.',
+      ],
+      groups: [
+        {
+          title: 'Aplikasi yang dicakup kebijakan ini',
+          items: [
+            'Nama aplikasi: simPAN',
+            'Nama paket Google Play: or.id.pan.simpan.simpan',
+            'Pengidentifikasi bundel Apple: or.id.pan.simpan',
+            'Pengendali data: Partai Amanat Nasional (DPP PAN)',
+            'Pengembang dan pemroses data: PT Lamacca Kreatif Solusi',
+          ],
+        },
+      ],
+    },
+
+    {
+      id: 'tanggung-jawab',
+      heading: 'Siapa yang bertanggung jawab atas data Anda',
+      body: [
+        '<strong>Partai Amanat Nasional</strong> adalah pengendali data pribadi. Partai menentukan tujuan dan cara pemrosesan data di dalam Aplikasi, dan merupakan pihak yang Anda hubungi terkait data Anda.',
+        '<strong>PT Lamacca Kreatif Solusi</strong> adalah pengembang sekaligus pemroses data pribadi. Perusahaan ini membangun, mengoperasikan, dan memelihara Aplikasi berdasarkan perjanjian dengan partai, serta memproses data pribadi hanya sesuai instruksi tertulis partai. Data tidak digunakan untuk kepentingan perusahaan sendiri.',
+        'PT Lamacca Kreatif Solusi juga mendistribusikan Aplikasi melalui akun pengembang Google Play dan App Store miliknya atas nama partai. Hal itu tidak menjadikannya pengendali atas data di dalam Aplikasi.',
+      ],
+    },
+
+    {
+      id: 'data',
+      heading: 'Data pribadi yang kami kumpulkan',
+      body: [
+        'Kategori berikut mencerminkan data yang benar-benar disimpan Aplikasi. Tidak semua data berlaku untuk setiap pengguna — bergantung pada peran Anda di partai dan fitur yang Anda gunakan.',
+      ],
+      groups: [
+        {
+          title: 'Akun dan identitas',
+          items: [
+            'Nama lengkap',
+            'Alamat surel dan kata sandi',
+            'Nomor telepon',
+            'Foto diri (swafoto) untuk Kartu Tanda Anggota',
+            'Peran dan hak akses Anda di dalam struktur partai',
+          ],
+        },
+        {
+          title: 'Data kependudukan',
+          body: 'Dibutuhkan untuk memverifikasi keanggotaan dan mencegah pendaftaran ganda.',
+          items: [
+            'Nomor Induk Kependudukan (NIK) 16 digit',
+            'Foto Kartu Tanda Penduduk (KTP)',
+            'Tempat dan tanggal lahir',
+            'Jenis kelamin',
+            'Agama',
+            'Golongan darah',
+            'Status pernikahan',
+            'Pekerjaan',
+            'Alamat lengkap, RT, RW, dan wilayah administratif hingga tingkat desa/kelurahan',
+          ],
+        },
+        {
+          title: 'Data pendidikan',
+          items: ['Pendidikan terakhir dan nama institusi pendidikan'],
+        },
+        {
+          title: 'Data keanggotaan partai',
+          items: [
+            'Nomor Kartu Tanda Anggota (KTA) dan nomor urut registrasi di wilayah Anda',
+            'Status keanggotaan serta status verifikasi (menunggu, terverifikasi, atau ditolak)',
+            'Catatan siapa yang memverifikasi atau menolak, kapan, dan alasan penolakan',
+            'Wilayah keanggotaan dan penempatan Anda dalam struktur kepengurusan',
+            'Isi Kartu Tanda Anggota digital beserta kode QR-nya',
+          ],
+        },
+        {
+          title: 'Data kerelawanan dan perekrutan',
+          body: 'Berlaku jika Anda merekrut relawan atau direkrut sebagai relawan.',
+          items: [
+            'Data relawan yang Anda rekrut, termasuk nama, NIK, kontak, dan wilayah',
+            'Foto bukti perekrutan',
+            'Struktur jaringan perekrutan (downline) dan posisi Anda di dalamnya',
+            'Data cakupan TPS serta statistik kinerja per wilayah dan per peran',
+          ],
+        },
+        {
+          title: 'Data teknis',
+          items: [
+            'Jenis perangkat, versi sistem operasi, dan versi aplikasi',
+            'Catatan sesi masuk dan keluar',
+            'Laporan galat (crash) sebagaimana dijelaskan pada bagian pembagian data',
+          ],
+        },
+      ],
+    },
+
+    {
+      id: 'spesifik',
+      heading: 'Data pribadi yang bersifat spesifik',
+      body: [
+        'Sebagian data yang kami kumpulkan tergolong <strong>data pribadi yang bersifat spesifik</strong> menurut Pasal 4 ayat (2) Undang-Undang Nomor 27 Tahun 2022 tentang Pelindungan Data Pribadi, sehingga memerlukan perlindungan lebih tinggi.',
+      ],
+      list: [
+        '<strong>Golongan darah</strong> merupakan data kesehatan. Data ini dikumpulkan karena tercantum pada KTP dan digunakan untuk kelengkapan administrasi keanggotaan.',
+        '<strong>Keanggotaan partai politik</strong> pada dirinya sendiri mengungkapkan pandangan politik Anda. Walaupun tidak disebut secara eksplisit dalam Pasal 4 ayat (2), kami memperlakukannya dengan kehati-hatian yang setara.',
+        '<strong>Agama</strong> dikumpulkan karena tercantum pada KTP dan pada Kartu Tanda Anggota. Data ini tidak digunakan untuk penyaringan, penilaian, maupun penargetan apa pun.',
+        '<strong>NIK dan foto KTP</strong> adalah pengidentifikasi kependudukan yang bersifat unik dan permanen, sehingga penyalahgunaannya berisiko tinggi.',
+      ],
+      note: 'Kami tidak menggunakan pengenalan wajah, pencocokan biometrik, maupun pembuatan profil otomatis atas data ini. Foto diri hanya dipakai sebagai pas foto pada Kartu Tanda Anggota.',
+    },
+
+    {
+      id: 'pemindaian-ktp',
+      heading: 'Pemindaian KTP menggunakan layanan AI',
+      body: [
+        'Agar Anda tidak perlu mengetik ulang seluruh isi KTP, Aplikasi menawarkan fitur pemindaian otomatis. Karena fitur ini melibatkan pihak ketiga, kami menjelaskannya secara terpisah.',
+      ],
+      list: [
+        'Ketika Anda memotret atau memilih foto KTP, gambar tersebut dikirim ke server kami, lalu diteruskan ke <strong>layanan kecerdasan buatan Google Gemini</strong> untuk dibaca secara otomatis.',
+        'Google membaca gambar tersebut dan mengembalikan datanya dalam bentuk teks: NIK, nama, tempat dan tanggal lahir, jenis kelamin, alamat, RT/RW, kelurahan, kecamatan, kabupaten, provinsi, agama, status perkawinan, pekerjaan, kewarganegaraan, dan golongan darah.',
+        'Hasil pembacaan ditampilkan kepada Anda untuk <strong>diperiksa dan diperbaiki</strong> sebelum disimpan. Hasil pemindaian tidak pernah langsung menjadi data akhir tanpa persetujuan Anda.',
+        'Pemrosesan oleh Google berlangsung di luar wilayah Indonesia dan tunduk pada ketentuan layanan Google atas antarmuka pemrogramannya.',
+        '<strong>Fitur ini opsional.</strong> Anda dapat melewati pemindaian dan mengisi seluruh formulir secara manual; foto KTP Anda tetap disimpan sebagai lampiran verifikasi, tetapi tidak dikirim ke layanan AI.',
+      ],
+      note: 'Foto KTP yang Anda unggah tetap disimpan pada penyimpanan berkas kami sebagai bukti verifikasi keanggotaan, terpisah dari proses pemindaian di atas.',
+    },
+
+    {
+      id: 'dpt',
+      heading: 'Pencocokan dengan data DPT',
+      body: [
+        'Pada fitur perekrutan relawan, Aplikasi dapat mencocokkan NIK calon relawan dengan Daftar Pemilih Tetap (DPT) melalui layanan pencarian yang dioperasikan PT Lamacca Kreatif Solusi.',
+        'Pencocokan ini dilakukan agar data relawan sesuai dengan wilayah pemilihannya dan agar formulir dapat terisi otomatis. Layanan tersebut mengembalikan nama, jenis kelamin, tanggal lahir, status perkawinan, wilayah, serta NIK yang sebagian digitnya disamarkan.',
+        'Pencarian hanya dapat dilakukan oleh pengguna yang sudah masuk dan memiliki peran perekrut, serta dibatasi pada wilayah kerja yang menjadi tanggung jawabnya.',
+      ],
+    },
+
+    {
+      id: 'izin',
+      heading: 'Izin akses perangkat',
+      body: [
+        'Aplikasi meminta izin hanya pada saat izin tersebut dibutuhkan, disertai penjelasan tujuannya. Anda dapat menolak atau mencabutnya kembali melalui pengaturan perangkat; fitur yang bergantung padanya akan berhenti bekerja, sedangkan fitur lain tetap berjalan.',
+      ],
+      groups: [
+        {
+          title: 'Kamera',
+          body: 'Untuk memotret KTP, mengambil foto diri (swafoto), dan mengambil foto bukti perekrutan relawan.',
+        },
+        {
+          title: 'Galeri foto',
+          body: 'Untuk memilih foto KTP atau foto diri yang sudah ada di perangkat Anda. Aplikasi hanya membaca berkas yang Anda pilih sendiri.',
+        },
+      ],
+      note: 'simPAN <strong>tidak</strong> meminta izin lokasi dalam bentuk apa pun, tidak meminta izin kontak, dan tidak mengirimkan notifikasi dorong (push notification). Aplikasi tidak dapat mengetahui posisi Anda.',
+    },
+
+    {
+      id: 'penggunaan',
+      heading: 'Untuk apa data Anda digunakan',
+      list: [
+        'Memproses pendaftaran keanggotaan serta memverifikasi identitas dan kelayakan Anda sebagai anggota',
+        'Menerbitkan dan menampilkan Kartu Tanda Anggota digital beserta kode QR-nya',
+        'Mencegah pendaftaran ganda melalui pemeriksaan NIK, surel, dan nomor telepon',
+        'Mengelola struktur kepengurusan partai dari tingkat pusat hingga tingkat ranting',
+        'Mengelola perekrutan, penempatan, dan pemantauan relawan',
+        'Menyusun statistik, laporan, dan pemantauan cakupan wilayah serta TPS',
+        'Menyampaikan berita, pengumuman, dan informasi kegiatan partai kepada Anda',
+        'Menjaga keamanan sistem, mencegah penyalahgunaan, dan memperbaiki gangguan teknis',
+        'Memenuhi kewajiban hukum partai, termasuk pelaporan keanggotaan kepada instansi yang berwenang sesuai peraturan perundang-undangan kepartaian dan kepemiluan',
+      ],
+    },
+
+    {
+      id: 'dasar',
+      heading: 'Dasar pemrosesan data',
+      body: [
+        'Kami memproses data pribadi berdasarkan Undang-Undang Nomor 27 Tahun 2022 tentang Pelindungan Data Pribadi (“UU PDP”). Bergantung pada jenis datanya, kami bersandar pada satu atau lebih dasar berikut.',
+      ],
+      list: [
+        '<strong>Persetujuan yang sah</strong> — Anda memberikannya secara sadar saat mendaftar menjadi anggota. Persetujuan atas data yang bersifat spesifik diminta secara terpisah dan dapat Anda tarik kembali sewaktu-waktu.',
+        '<strong>Pemenuhan kewajiban perjanjian</strong> — pelaksanaan hubungan keanggotaan antara Anda dan partai.',
+        '<strong>Pemenuhan kewajiban hukum</strong> — ketentuan peraturan perundang-undangan mengenai partai politik dan pemilihan umum.',
+        '<strong>Kepentingan yang sah</strong> — menjaga keamanan sistem, mencegah pendaftaran ganda dan penyalahgunaan, serta menyusun pelaporan internal partai.',
+      ],
+      note: 'Penarikan persetujuan tidak memengaruhi keabsahan pemrosesan yang telah dilakukan sebelumnya, dan dapat berakibat pada berakhirnya keanggotaan Anda apabila data tersebut merupakan syarat keanggotaan.',
+    },
+
+    {
+      id: 'didaftarkan-orang-lain',
+      heading: 'Jika data Anda dimasukkan oleh orang lain',
+      body: [
+        'Relawan dapat didaftarkan oleh anggota lain yang berperan sebagai perekrut. Artinya, data pribadi Anda mungkin berada di dalam Aplikasi meskipun Anda tidak pernah memasangnya sendiri.',
+        'Apabila hal itu terjadi, Anda tetap memiliki seluruh hak yang dijelaskan pada bagian “Hak Anda” di bawah ini. Hubungi kami melalui kontak di akhir halaman ini, dan kami akan menelusuri, memperbaiki, atau menghapus data Anda sepanjang tidak ada kewajiban hukum yang mengharuskan penyimpanannya.',
+      ],
+      note: 'Jika Anda merekrut orang lain melalui Aplikasi, pastikan yang bersangkutan mengetahui dan menyetujui bahwa datanya dicatat, serta memahami untuk apa data itu digunakan. Tanggung jawab tersebut ada pada Anda sebagai perekrut.',
+    },
+
+    {
+      id: 'pembagian',
+      heading: 'Dengan siapa data Anda dibagikan',
+      body: [
+        'Kami tidak menjual, menyewakan, atau memperdagangkan data pribadi. Kami tidak membagikannya untuk kepentingan periklanan maupun tujuan komersial lain. Pengungkapan hanya dilakukan sebagai berikut.',
+      ],
+      groups: [
+        {
+          title: 'Di lingkungan internal partai',
+          body: 'Data Anda dapat diakses oleh pengurus dan administrator yang berwenang sesuai tingkat wilayahnya — misalnya pengurus ranting hanya melihat anggota di wilayahnya. Pembatasan ini diterapkan melalui sistem hak akses berbasis peran.',
+        },
+        {
+          title: 'PT Lamacca Kreatif Solusi',
+          body: 'Mengakses data pribadi sebatas yang diperlukan untuk mengoperasikan, mendukung, dan memperbaiki sistem, berdasarkan perjanjian yang membatasinya pada instruksi partai dan mengikatnya pada kewajiban kerahasiaan.',
+        },
+        {
+          title: 'Google (Gemini API)',
+          body: 'Menerima foto KTP untuk dibaca secara otomatis, sebagaimana dijelaskan pada bagian pemindaian KTP di atas. Google tidak menerima data keanggotaan Anda yang lain.',
+        },
+        {
+          title: 'Sentry',
+          body: 'Layanan pemantauan galat. Saat aplikasi mengalami gangguan, laporan teknis dikirim ke Sentry disertai pengenal akun berupa UUID acak. Nama, surel, nomor telepon, NIK, alamat, alamat IP, dan isi permintaan tidak ikut terkirim.',
+        },
+        {
+          title: 'Penyedia infrastruktur',
+          body: 'Google Cloud Platform sebagai penyedia server, basis data, dan penyimpanan berkas, serta SuperTokens sebagai komponen autentikasi yang kami operasikan sendiri.',
+        },
+        {
+          title: 'Instansi berwenang',
+          body: 'Apabila diwajibkan oleh peraturan perundang-undangan, putusan pengadilan, atau permintaan resmi instansi yang berwenang — termasuk kewajiban pelaporan keanggotaan partai politik.',
+        },
+      ],
+    },
+
+    {
+      id: 'penyimpanan',
+      heading: 'Di mana data Anda disimpan',
+      body: [
+        'Basis data, berkas unggahan, dan server aplikasi ditempatkan pada infrastruktur Google Cloud Platform di <strong>wilayah Jakarta (asia-southeast2), Indonesia</strong>. Data keanggotaan Anda disimpan di dalam negeri.',
+        'Pengecualiannya adalah dua layanan yang dijelaskan di atas: foto KTP yang dipindai diproses oleh Google di luar Indonesia, dan laporan galat teknis dikirim ke Sentry yang servernya berada di Uni Eropa. Keduanya tunduk pada komitmen pelindungan data masing-masing penyedia dan pada perjanjian pemrosesan data kami.',
+      ],
+    },
+
+    {
+      id: 'retensi',
+      heading: 'Berapa lama data disimpan',
+      body: [
+        'Kami menyimpan data pribadi hanya selama tujuan pengumpulannya masih berlaku dan selama diwajibkan oleh peraturan perundang-undangan.',
+      ],
+      list: [
+        'Data keanggotaan disimpan selama Anda tercatat sebagai anggota partai.',
+        'Setelah keanggotaan berakhir, data disimpan selama jangka waktu yang diwajibkan peraturan perundang-undangan mengenai partai politik dan kepemiluan, kemudian dihapus atau dianonimkan.',
+        'Foto KTP disimpan sebagai bukti verifikasi selama keanggotaan berlangsung.',
+        'Gambar yang dikirim untuk pemindaian tidak kami simpan sebagai salinan tersendiri setelah datanya terbaca.',
+        'Catatan teknis dan laporan galat disimpan dalam jangka pendek sesuai kebutuhan operasional.',
+      ],
+    },
+
+    {
+      id: 'keamanan',
+      heading: 'Bagaimana kami melindungi data Anda',
+      list: [
+        'Seluruh lalu lintas antara aplikasi dan server kami dienkripsi menggunakan TLS.',
+        'Data dienkripsi saat tersimpan oleh layanan basis data dan penyimpanan Google Cloud.',
+        'Autentikasi ditangani SuperTokens; aplikasi tidak pernah menyimpan kata sandi Anda dalam bentuk aslinya.',
+        'Akses diatur melalui sistem peran dan pembatasan wilayah, sehingga pengurus hanya melihat data yang menjadi kewenangannya.',
+        'Berkas unggahan hanya dapat diakses melalui tautan bertanda tangan yang berlaku sementara, bukan melalui alamat publik yang permanen.',
+        'Akses administratif ke sistem produksi dibatasi, dicatat, dan hanya diberikan kepada personel tertentu.',
+      ],
+      note: 'Tidak ada sistem yang sepenuhnya aman. Apabila terjadi kegagalan pelindungan data pribadi yang berpotensi merugikan, kami akan memberitahukannya kepada Anda dan kepada lembaga yang berwenang dalam waktu paling lama 3×24 jam sebagaimana diatur Pasal 46 UU PDP.',
+    },
+
+    {
+      id: 'hak',
+      heading: 'Hak Anda',
+      body: [
+        'Sesuai Pasal 5 sampai Pasal 13 UU PDP, Anda berhak untuk:',
+      ],
+      list: [
+        'Mendapatkan informasi mengenai identitas kami, dasar hukum, dan tujuan pemrosesan data Anda',
+        'Melihat dan memperoleh salinan data pribadi Anda',
+        'Memperbaiki data yang tidak akurat atau tidak lengkap',
+        'Mengakhiri pemrosesan, menghapus, atau memusnahkan data pribadi Anda',
+        'Menarik kembali persetujuan yang pernah Anda berikan',
+        'Menolak tindakan pengambilan keputusan yang semata-mata dilakukan secara otomatis',
+        'Menunda atau membatasi pemrosesan data pribadi Anda',
+        'Menggugat dan menerima ganti rugi atas pelanggaran pelindungan data pribadi Anda',
+        'Memperoleh dan menggunakan data pribadi Anda dalam format yang dapat dibaca sistem elektronik',
+      ],
+      note: 'Ajukan permintaan melalui kontak pada bagian akhir halaman ini. Kami akan menanggapi paling lambat 3×24 jam sejak permintaan diterima, sesuai Pasal 21 UU PDP. Apabila Anda tidak puas dengan tanggapan kami, Anda dapat mengadu kepada lembaga pelindungan data pribadi di bawah Kementerian Komunikasi dan Digital.',
+    },
+
+    {
+      id: 'hapus-akun',
+      heading: 'Menghapus akun dan data Anda',
+      body: [
+        'Anda berhak meminta penghapusan akun simPAN beserta data pribadi Anda kapan saja. Permintaan ini tidak dikenakan biaya.',
+        'Kirimkan permintaan melalui surel ke <strong>dpp.partaiamanatnasional@gmail.com</strong> dengan subjek “simPAN — permintaan penghapusan akun”, sertakan nama lengkap dan alamat surel yang terdaftar pada akun Anda.',
+      ],
+      list: [
+        'Kami memverifikasi identitas Anda terlebih dahulu agar akun tidak dihapus oleh pihak yang tidak berhak.',
+        'Akun dinonaktifkan dan aksesnya dicabut.',
+        'Data pribadi yang tidak wajib kami simpan — termasuk foto diri, foto KTP, nomor telepon, alamat surel, alamat tempat tinggal, dan data pendidikan — dihapus atau dianonimkan.',
+        'Data yang wajib disimpan berdasarkan peraturan perundang-undangan mengenai partai politik dan kepemiluan disimpan sampai jangka waktunya berakhir, lalu dihapus.',
+        'Kami mengonfirmasikan hasilnya kepada Anda secara tertulis.',
+      ],
+      note: 'Menghapus aplikasi dari perangkat tidak menghapus akun maupun data yang sudah tercatat. Gunakan tata cara di atas. Penghapusan akun juga berarti berakhirnya keanggotaan Anda beserta Kartu Tanda Anggota digitalnya.',
+    },
+
+    {
+      id: 'anak',
+      heading: 'Anak dan batas usia',
+      body: [
+        'Keanggotaan partai politik hanya terbuka bagi Warga Negara Indonesia yang telah berusia 17 tahun atau sudah menikah, sesuai Undang-Undang Nomor 2 Tahun 2008 tentang Partai Politik. simPAN tidak ditujukan bagi anak-anak dan kami tidak dengan sengaja membuat akun untuk mereka.',
+        'Apabila Anda mengetahui adanya akun yang dibuat oleh anak di bawah batas usia tersebut, hubungi kami dan akun beserta datanya akan kami hapus.',
+      ],
+    },
+
+    {
+      id: 'perubahan',
+      heading: 'Perubahan kebijakan ini',
+      body: [
+        'Kebijakan ini kami perbarui apabila terjadi perubahan pada Aplikasi atau apabila diwajibkan oleh peraturan perundang-undangan. Tanggal berlaku di bagian atas halaman selalu mencerminkan versi terkini.',
+        'Apabila perubahan berdampak besar terhadap cara data pribadi Anda digunakan, kami akan memberitahukannya melalui Aplikasi atau melalui saluran resmi partai sebelum perubahan tersebut berlaku.',
+      ],
+    },
+
+    {
+      id: 'kontak',
+      heading: 'Hubungi kami',
+      body: [
+        'Untuk pertanyaan mengenai kebijakan ini, atau untuk menggunakan hak-hak Anda di atas, hubungi pengendali data:',
+      ],
+      groups: [
+        {
+          title: 'Partai Amanat Nasional (DPP PAN)',
+          body: 'Pengendali data',
+          items: [
+            'Jl. Senopati No. 113, Kebayoran Baru, Jakarta Selatan, DKI Jakarta 12190',
+            'dpp.partaiamanatnasional@gmail.com',
+            '+62 21 7884 8469',
+          ],
+        },
+        {
+          title: processor.name,
+          body: 'Pengembang dan pemroses data — hanya untuk pertanyaan teknis',
+          items: [processor.address, processor.email],
+        },
+      ],
+    },
+  ],
+};
+
+export const policies: Policy[] = [indonesia, malaysia, sds, simpan];
 
 export function getPolicy(slug: string): Policy | undefined {
   return policies.find((p) => p.slug === slug);
