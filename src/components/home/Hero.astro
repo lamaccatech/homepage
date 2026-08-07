@@ -1,0 +1,88 @@
+---
+import Button from '../ui/Button.astro';
+import HeroCollage from './HeroCollage.astro';
+import { site } from '../../data/site';
+
+// Each line animates up behind its own mask, so the headline assembles itself.
+// Kept short and poster-like so no line ever wraps on its own.
+const lines = ['Software', 'institutions', 'run on.'];
+---
+
+<section
+  class="relative overflow-hidden pb-20 pt-32 sm:pt-40 lg:pb-28 lg:pt-44"
+  data-hero
+>
+  {/* Soft colour wash — brand red kept low-opacity so it warms rather than shouts */}
+  <div class="pointer-events-none absolute inset-0 -z-10" aria-hidden="true">
+    <div
+      class="blob absolute -left-[10%] -top-[12%] h-[38rem] w-[38rem] rounded-full bg-brand-400/18 blur-[100px]"
+    >
+    </div>
+    <div
+      class="blob absolute -right-[8%] top-[6%] h-[32rem] w-[32rem] rounded-full bg-amber/22 blur-[110px]"
+      style="animation-delay: -7s"
+    >
+    </div>
+    <div
+      class="blob absolute bottom-[-18%] left-[28%] h-[30rem] w-[30rem] rounded-full bg-lilac/18 blur-[110px]"
+      style="animation-delay: -14s"
+    >
+    </div>
+    <div class="bg-noise absolute inset-0 opacity-[0.035] mix-blend-multiply"></div>
+  </div>
+
+  <div class="shell">
+    <div class="grid items-center gap-14 lg:grid-cols-[0.95fr_1.05fr] lg:gap-12">
+      <div>
+        <div
+          class="inline-flex items-center gap-2.5 rounded-full border border-ink/10 bg-white/70 py-1.5 pl-1.5 pr-4 backdrop-blur"
+          data-hero-fade
+        >
+          <span
+            class="rounded-full bg-brand-600 px-2.5 py-1 text-[0.65rem] font-bold uppercase tracking-[0.12em] text-white"
+          >
+            Est. {site.founded}
+          </span>
+          <span class="text-xs font-semibold text-ink-2">
+            {site.legalName}
+          </span>
+        </div>
+
+        <h1 class="display-1 mt-7 text-ink">
+          {
+            lines.map((line, i) => (
+              <span class="block overflow-hidden pb-[0.06em]" data-hero-line>
+                <span class="block">
+                  {i === 2 ? <span class="marker text-brand-600">{line}</span> : line}
+                </span>
+              </span>
+            ))
+          }
+        </h1>
+
+        <p
+          class="mt-8 max-w-xl text-lg leading-relaxed text-ink-3"
+          data-hero-fade
+        >
+          Custom software, integrated information systems, and digital platforms
+          for government institutions, private companies, and organisations
+          across Indonesia.
+        </p>
+
+        <div class="mt-10 flex flex-wrap items-center gap-3" data-hero-fade>
+          <Button href="/contact" variant="primary">Start a project</Button>
+          <Button href="/work" variant="ghost">See our work</Button>
+        </div>
+
+        <p
+          class="mt-10 text-xs font-semibold uppercase tracking-[0.16em] text-ink-4"
+          data-hero-fade
+        >
+          {site.descriptor}
+        </p>
+      </div>
+
+      <HeroCollage />
+    </div>
+  </div>
+</section>

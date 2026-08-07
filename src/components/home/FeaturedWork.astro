@@ -1,0 +1,186 @@
+---
+import { Image } from 'astro:assets';
+import SectionHead from '../ui/SectionHead.astro';
+import Button from '../ui/Button.astro';
+import LampMark from '../brand/LampMark.astro';
+import { work } from '../../data/work';
+import { accent } from '../../lib/accents';
+
+// The six engagements that best show the range of sectors we work in.
+const featured = work.slice(0, 6);
+---
+
+<section class="relative overflow-hidden bg-ink py-24 text-paper lg:py-32">
+  <LampMark
+    class="pointer-events-none absolute -right-24 top-10 h-[30rem] w-auto text-white/[0.025]"
+  />
+
+  <div class="shell relative">
+    <div class="flex flex-wrap items-end justify-between gap-8">
+      <SectionHead
+        eyebrow="Selected work"
+        title="Systems in production,<br />not slide decks."
+        lead="Grant management for the national police. Asset reconciliation for a provincial treasury. Real-time election monitoring. Each of these runs every day."
+        tone="paper"
+        class="max-w-xl"
+      />
+      <div data-reveal data-reveal-delay="0.16">
+        <Button href="/work" variant="paper">All projects</Button>
+      </div>
+    </div>
+
+    {/* Floating preview that trails the cursor over rows that have a shot.
+        Pointer-fine only; the script never mounts it on touch. */}
+    <div
+      class="pointer-events-none fixed left-0 top-0 z-30 hidden h-64 w-44 lg:block"
+      data-work-preview
+      aria-hidden="true"
+    >
+      {/* Inner layer owns opacity/scale/rotate; the outer div owns position,
+          so the follow loop and Motion never write the same property. */}
+      <div
+        class="relative h-full w-full overflow-hidden rounded-2xl border border-white/15 opacity-0 shadow-[0_30px_70px_-20px_rgba(0,0,0,0.7)]"
+        data-work-preview-inner
+      >
+        {
+          featured.map((item) =>
+            item.image ? (
+              <Image
+                src={item.image}
+                alt=""
+                widths={[220, 360]}
+                sizes="180px"
+                class="absolute inset-0 hidden h-full w-full object-cover object-top"
+                data-preview-for={item.slug}
+              />
+            ) : null,
+          )
+        }
+      </div>
+    </div>
+
+    <ul class="mt-16 border-t border-white/12" data-reveal-group>
+      {
+        featured.map((item, i) => {
+          const a = accent[item.accent];
+          return (
+            <li>
+              <a
+                href={`/work/${item.slug}`}
+                class="group relative grid grid-cols-[auto_1fr_auto] items-center gap-x-5 gap-y-2 border-b border-white/12 py-7 transition-colors duration-500 sm:grid-cols-[auto_1.6fr_1fr_auto] sm:gap-x-8"
+                data-work-row={item.image ? item.slug : undefined}
+              >
+                {/* Hover wash sweeping in from the left */}
+                <span
+                  class="pointer-events-none absolute inset-x-[-1.5rem] inset-y-0 origin-left scale-x-0 rounded-2xl bg-white/[0.045] transition-transform duration-600 ease-[var(--ease-out-expo)] group-hover:scale-x-100"
+                  aria-hidden="true"
+                />
+
+                <span class="relative text-xs font-bold tabular-nums text-paper/35">
+                  0{i + 1}
+                </span>
+
+                <span class="relative">
+                  <span class="block text-xl font-bold tracking-tight text-paper transition-transform duration-500 ease-[var(--ease-out-expo)] group-hover:translate-x-1.5 sm:text-2xl">
+                    {item.title}
+                  </span>
+                  <span class="mt-1.5 block text-sm text-paper/45 sm:hidden">
+                    {item.clients.join(' · ')}
+                  </span>
+                </span>
+
+                <span class="relative hidden text-sm text-paper/50 sm:block">
+                  {item.clients.join(' · ')}
+                </span>
+
+                <span class="relative col-start-3 row-start-1 flex items-center gap-4 justify-self-end sm:col-start-4">
+                  <span
+                    class:list={[
+                      'hidden rounded-full px-3 py-1.5 text-[0.65rem] font-bold uppercase tracking-wider md:inline-block',
+                      a.softOnDark,
+                      a.textOnDark,
+                    ]}
+                  >
+                    {item.sector}
+                  </span>
+                  <span class="grid h-10 w-10 place-items-center rounded-full border border-white/15 transition-colors duration-400 group-hover:border-brand-600 group-hover:bg-brand-600">
+                    <svg
+                      class="h-3.5 w-3.5 transition-transform duration-400 ease-[var(--ease-out-expo)] group-hover:translate-x-0.5"
+                      viewBox="0 0 16 16"
+                      fill="none"
+                      aria-hidden="true"
+                    >
+                      <path
+                        d="M2 8h11m0 0L9 4m4 4-4 4"
+                        stroke="currentColor"
+                        stroke-width="1.8"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                    </svg>
+                  </span>
+                </span>
+              </a>
+            </li>
+          );
+        })
+      }
+    </ul>
+  </div>
+</section>
+
+<script>
+  import { animate, hover } from 'motion';
+
+  const preview = document.querySelector<HTMLElement>('[data-work-preview]');
+  const card = document.querySelector<HTMLElement>('[data-work-preview-inner]');
+  const rows = document.querySelectorAll<HTMLElement>('[data-work-row]');
+
+  const enabled =
+    preview &&
+    card &&
+    rows.length > 0 &&
+    window.matchMedia('(pointer: fine)').matches &&
+    !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (enabled) {
+    const shots = card.querySelectorAll<HTMLElement>('[data-preview-for]');
+    let x = 0;
+    let y = 0;
+    let raf = 0;
+
+    // Trail the cursor on its own frame loop so pointermove stays cheap.
+    const follow = () => {
+      preview.style.transform = `translate3d(${x - 88}px, ${y - 128}px, 0)`;
+      raf = requestAnimationFrame(follow);
+    };
+
+    const track = (e: PointerEvent) => {
+      x = e.clientX;
+      y = e.clientY;
+    };
+
+    rows.forEach((row) => {
+      hover(row, () => {
+        const slug = row.dataset.workRow;
+        shots.forEach((shot) =>
+          shot.classList.toggle('hidden', shot.dataset.previewFor !== slug),
+        );
+
+        window.addEventListener('pointermove', track);
+        raf = requestAnimationFrame(follow);
+        animate(
+          card,
+          { opacity: [0, 1], scale: [0.9, 1], rotate: [-5, -2] },
+          { duration: 0.35, ease: [0.16, 1, 0.3, 1] },
+        );
+
+        return () => {
+          window.removeEventListener('pointermove', track);
+          cancelAnimationFrame(raf);
+          animate(card, { opacity: 0, scale: 0.94 }, { duration: 0.2 });
+        };
+      });
+    });
+  }
+</script>

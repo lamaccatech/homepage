@@ -1,0 +1,131 @@
+---
+import Logo from './Logo.astro';
+import { nav } from '../data/site';
+
+interface Props {
+  transparent?: boolean;
+}
+
+const { transparent = false } = Astro.props;
+const path = Astro.url.pathname.replace(/\/$/, '') || '/';
+const isActive = (href: string) => path === href || path.startsWith(`${href}/`);
+---
+
+<header
+  {/* Sits above the mobile menu panel (z-85): the header creates its own
+      stacking context, so the toggle can only stay clickable from up here. */}
+  class="fixed inset-x-0 top-0 z-[92] transition-[background-color,box-shadow,backdrop-filter] duration-500 data-[scrolled]:bg-paper/80 data-[scrolled]:shadow-[0_1px_0_rgba(20,16,15,0.07)] data-[scrolled]:backdrop-blur-xl"
+  class:list={[transparent ? 'bg-transparent' : 'bg-paper/80 backdrop-blur-xl']}
+  data-header
+>
+  <div class="shell flex h-20 items-center justify-between gap-6">
+    <a href="/" class="group -m-2 rounded-full p-2" aria-label="Lamacca — home">
+      <Logo />
+    </a>
+
+    <nav class="hidden items-center gap-1 lg:flex" aria-label="Primary">
+      {
+        nav.map((item) => (
+          <a
+            href={item.href}
+            class="relative rounded-full px-4 py-2 text-sm font-semibold text-ink-2 transition-colors duration-300 hover:text-ink"
+            aria-current={isActive(item.href) ? 'page' : undefined}
+          >
+            {item.label}
+            <span
+              class="absolute inset-x-4 -bottom-0.5 h-[2px] origin-left rounded-full bg-brand-600 transition-transform duration-400 ease-[var(--ease-out-expo)]"
+              class:list={[isActive(item.href) ? 'scale-x-100' : 'scale-x-0']}
+            />
+          </a>
+        ))
+      }
+    </nav>
+
+    <div class="flex items-center gap-3">
+      <a
+        href="/contact"
+        class="group hidden items-center gap-2 rounded-full bg-ink px-5 py-2.5 text-sm font-semibold text-paper transition-colors duration-300 hover:bg-brand-600 sm:inline-flex"
+        data-magnetic="0.15"
+      >
+        Start a project
+        <svg
+          class="h-3.5 w-3.5 transition-transform duration-400 ease-[var(--ease-out-expo)] group-hover:translate-x-1"
+          viewBox="0 0 16 16"
+          fill="none"
+          aria-hidden="true"
+        >
+          <path
+            d="M2 8h11m0 0L9 4m4 4-4 4"
+            stroke="currentColor"
+            stroke-width="1.8"
+            stroke-linecap="round"
+            stroke-linejoin="round"></path>
+        </svg>
+      </a>
+
+      <button
+        type="button"
+        class="group/menu grid h-11 w-11 place-items-center rounded-full border border-ink/12 bg-paper/60 lg:hidden"
+        aria-expanded="false"
+        aria-controls="mobile-menu"
+        aria-label="Toggle navigation menu"
+        data-menu-toggle
+      >
+        <span class="sr-only">Menu</span>
+        <svg
+          class="h-5 w-5 group-aria-expanded/menu:hidden"
+          viewBox="0 0 20 20"
+          fill="none"
+          aria-hidden="true"
+        >
+          <path
+            d="M3 6h14M3 13h14"
+            stroke="currentColor"
+            stroke-width="1.8"
+            stroke-linecap="round"></path>
+        </svg>
+        <svg
+          class="hidden h-5 w-5 group-aria-expanded/menu:block"
+          viewBox="0 0 20 20"
+          fill="none"
+          aria-hidden="true"
+        >
+          <path
+            d="M5 5l10 10M15 5L5 15"
+            stroke="currentColor"
+            stroke-width="1.8"
+            stroke-linecap="round"></path>
+        </svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div
+  id="mobile-menu"
+  class="fixed inset-0 z-[85] bg-paper px-6 pb-10 pt-28 lg:hidden"
+  hidden
+  data-menu-panel
+>
+  <nav class="flex flex-col" aria-label="Mobile">
+    {
+      nav.map((item) => (
+        <a
+          href={item.href}
+          class="border-b border-ink/8 py-5 text-3xl font-extrabold tracking-tight text-ink"
+          data-menu-item
+        >
+          {item.label}
+        </a>
+      ))
+    }
+  </nav>
+
+  <a
+    href="/contact"
+    class="mt-10 flex items-center justify-center rounded-full bg-brand-600 px-6 py-4 text-base font-semibold text-white"
+    data-menu-item
+  >
+    Start a project
+  </a>
+</div>

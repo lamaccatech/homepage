@@ -1,0 +1,58 @@
+---
+import Button from '../ui/Button.astro';
+import { stats } from '../../data/site';
+---
+
+<section class="shell py-24 lg:py-32">
+  <div class="grid gap-14 lg:grid-cols-[1fr_0.85fr] lg:gap-20">
+    <div>
+      <p class="eyebrow flex items-center gap-2.5 text-brand-600" data-reveal>
+        <span class="inline-block h-1.5 w-1.5 rounded-full bg-current"></span>
+        Who we are
+      </p>
+
+      <p
+        class="mt-7 text-2xl leading-[1.45] tracking-[-0.02em] text-ink sm:text-[1.75rem]"
+        data-reveal
+        data-reveal-delay="0.06"
+      >
+        Technology should create <span class="marker text-brand-600">real impact</span>.
+        Since 2016 we have delivered smart, tailored digital solutions — from
+        software development to IT consulting — that help our partners grow and
+        adapt in a digital-first world.
+      </p>
+
+      <p
+        class="mt-7 max-w-xl leading-relaxed text-ink-3"
+        data-reveal
+        data-reveal-delay="0.1"
+      >
+        We build customised web and mobile applications, integrated information
+        systems, and smart digital platforms. Our goal is to simplify processes,
+        enhance productivity, and create long-term value through innovative and
+        scalable technology.
+      </p>
+
+      <div class="mt-9 flex flex-wrap gap-3" data-reveal data-reveal-delay="0.14">
+        <Button href="/about" variant="ink">About Lamacca</Button>
+        <Button href="/services" variant="ghost">What we do</Button>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-2 gap-px overflow-hidden rounded-[var(--radius-card)] bg-ink/10">
+      {
+        stats.map((stat) => (
+          <div class="bg-paper p-7 sm:p-8" data-reveal>
+            <p class="flex items-baseline gap-0.5 text-4xl font-extrabold tracking-tight text-ink sm:text-5xl">
+              <span data-count={stat.value} data-count-format={stat.format}>
+                {stat.value}
+              </span>
+              <span class="text-brand-600">{stat.suffix}</span>
+            </p>
+            <p class="mt-2.5 text-sm leading-snug text-ink-3">{stat.label}</p>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>

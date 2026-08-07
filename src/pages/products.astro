@@ -1,0 +1,115 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { products } from '../data/products';
+import { accent } from '../lib/accents';
+---
+
+<Base
+  title="Products"
+  description="In-house platforms built by Lamacca: e-Partai, Pantau Relawan, Brainplus, Crowdfunding, Cleaning Service Management, and SIMPEL."
+  transparentHeader
+>
+  <PageHero
+    eyebrow="Our products"
+    title="Platforms already<br />built and running."
+    lead="Each of these started as a client problem and grew into a product. That means you get a proven foundation, tailored to how your organisation actually works — instead of a blank page and a long timeline."
+    meta={['6 platforms', 'Web & mobile', 'Ready to tailor']}
+  />
+
+  <section class="shell pb-12 pt-8 lg:pb-20">
+    <div class="space-y-6">
+      {
+        products.map((product, i) => {
+          const a = accent[product.accent];
+          return (
+            <article
+              id={product.slug}
+              class="group relative scroll-mt-28 overflow-hidden rounded-[2rem] border border-ink/8 bg-white transition-colors duration-500 hover:border-ink/16"
+              data-reveal
+            >
+              {/* Accent rail */}
+              <span
+                class:list={['absolute inset-y-0 left-0 w-1', a.solid]}
+                aria-hidden="true"
+              />
+
+              <div
+                class:list={[
+                  'grid gap-8 p-8 sm:p-12 lg:gap-14 lg:p-14',
+                  // Products with a screenshot get a middle column for it.
+                  product.image
+                    ? 'lg:grid-cols-[1fr_0.62fr_1fr]'
+                    : 'lg:grid-cols-[1fr_1fr]',
+                ]}
+              >
+                <div>
+                  <div class="flex flex-wrap items-center gap-3">
+                    <span
+                      class:list={[
+                        'rounded-full px-3 py-1.5 text-[0.65rem] font-bold uppercase tracking-[0.12em]',
+                        a.soft,
+                        a.text,
+                      ]}
+                    >
+                      {product.category}
+                    </span>
+                    {product.platforms.map((p) => (
+                      <span class="rounded-full border border-ink/12 px-3 py-1.5 text-[0.65rem] font-semibold text-ink-3">
+                        {p}
+                      </span>
+                    ))}
+                    <span class="ml-auto text-sm font-bold tabular-nums text-ink-4">
+                      0{i + 1}
+                    </span>
+                  </div>
+
+                  <h2 class="display-3 mt-7 text-ink">{product.name}</h2>
+                  <p class="mt-5 text-lg leading-relaxed text-ink-2">
+                    {product.summary}
+                  </p>
+                </div>
+
+                {
+                  product.image && (
+                    <figure class="self-start overflow-hidden rounded-[var(--radius-card)] border border-ink/8 bg-paper-2">
+                      <Image
+                        src={product.image}
+                        alt={`Interface screens from ${product.name}`}
+                        widths={[360, 520, 720]}
+                        sizes="(min-width: 1024px) 300px, (min-width: 640px) 50vw, 88vw"
+                        class="w-full transition-transform duration-700 ease-[var(--ease-out-expo)] group-hover:scale-[1.03]"
+                      />
+                    </figure>
+                  )
+                }
+
+                <div class="lg:pt-2">
+                  <h3 class="eyebrow text-ink-4">Capabilities</h3>
+                  <ul class="mt-6 grid gap-x-6 gap-y-3 sm:grid-cols-2">
+                    {product.features.map((f) => (
+                      <li class="flex items-start gap-3 text-sm text-ink-2">
+                        <span
+                          class:list={['mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full', a.solid]}
+                          aria-hidden="true"
+                        />
+                        {f}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            </article>
+          );
+        })
+      }
+    </div>
+  </section>
+
+  <CtaBand
+    title="Want one of these shaped around your organisation?"
+    lead="Every deployment we do is configured to the client's structure, roles, and reporting lines. Tell us yours."
+  />
+</Base>

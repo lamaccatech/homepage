@@ -1,0 +1,101 @@
+---
+import SectionHead from '../ui/SectionHead.astro';
+import ServiceIcon from '../ui/ServiceIcon.astro';
+import Button from '../ui/Button.astro';
+import { services } from '../../data/services';
+import { accent } from '../../lib/accents';
+---
+
+<section class="relative overflow-hidden bg-paper-2/50 py-24 lg:py-32">
+  <div class="shell">
+    <div class="flex flex-wrap items-end justify-between gap-8">
+      <SectionHead
+        eyebrow="What we do"
+        title="Four disciplines,<br />one delivery team."
+        lead="We are not a marketplace of freelancers. The people who scope your system are the people who build and maintain it."
+        class="max-w-xl"
+      />
+      <div data-reveal data-reveal-delay="0.16">
+        <Button href="/services" variant="ghost">All services</Button>
+      </div>
+    </div>
+
+    <div class="mt-16 grid gap-5 sm:grid-cols-2" data-reveal-group>
+      {
+        services.map((service, i) => {
+          const a = accent[service.accent];
+          return (
+            <a
+              href={`/services#${service.slug}`}
+              class:list={[
+                'group relative flex flex-col overflow-hidden rounded-[var(--radius-card)] bg-white p-8 transition-[transform,box-shadow] duration-500 ease-[var(--ease-out-expo)] hover:-translate-y-1.5 sm:p-10',
+                'shadow-[0_1px_2px_rgba(20,16,15,0.04),0_10px_30px_-18px_rgba(20,16,15,0.18)]',
+                a.glow,
+                // Stagger the second column downward on wide screens so the
+                // grid reads as a composition rather than a spreadsheet.
+                i % 2 === 1 && 'sm:mt-10',
+              ]}
+            >
+              {/* Accent wash that blooms on hover */}
+              <span
+                class:list={[
+                  'pointer-events-none absolute -right-16 -top-16 h-44 w-44 rounded-full opacity-0 blur-2xl transition-opacity duration-700 group-hover:opacity-100',
+                  a.soft,
+                ]}
+                aria-hidden="true"
+              />
+
+              <div class="relative flex items-start justify-between gap-6">
+                <span
+                  class:list={[
+                    'grid h-14 w-14 shrink-0 place-items-center rounded-2xl transition-transform duration-500 ease-[var(--ease-spring)] group-hover:-rotate-6 group-hover:scale-110',
+                    a.soft,
+                    a.text,
+                  ]}
+                >
+                  <ServiceIcon name={service.slug as never} class="h-7 w-7" />
+                </span>
+                <span class="text-sm font-bold tabular-nums text-ink-4">
+                  0{i + 1}
+                </span>
+              </div>
+
+              <h3 class="relative mt-8 text-2xl font-bold tracking-tight text-ink">
+                {service.title}
+              </h3>
+              <p class="relative mt-3.5 leading-relaxed text-ink-3">
+                {service.summary}
+              </p>
+
+              <ul class="relative mt-7 flex flex-wrap gap-2">
+                {service.capabilities.slice(0, 3).map((cap) => (
+                  <li class="rounded-full border border-ink/10 px-3 py-1.5 text-xs font-medium text-ink-3">
+                    {cap}
+                  </li>
+                ))}
+              </ul>
+
+              <span class="relative mt-8 inline-flex items-center gap-2 text-sm font-semibold text-ink">
+                Explore
+                <svg
+                  class="h-3.5 w-3.5 transition-transform duration-400 ease-[var(--ease-out-expo)] group-hover:translate-x-1.5"
+                  viewBox="0 0 16 16"
+                  fill="none"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M2 8h11m0 0L9 4m4 4-4 4"
+                    stroke="currentColor"
+                    stroke-width="1.8"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </span>
+            </a>
+          );
+        })
+      }
+    </div>
+  </div>
+</section>

@@ -1,0 +1,20 @@
+---
+import Marquee from '../Marquee.astro';
+import { techStack } from '../../data/company';
+
+// Both rows carry the full list so the seam falls well outside the viewport;
+// the second row starts halfway through and runs the other way.
+const half = Math.ceil(techStack.length / 2);
+const rowTwo = [...techStack.slice(half), ...techStack.slice(0, half)];
+---
+
+<section class="overflow-hidden border-y border-ink/8 bg-paper-2/50 py-16 lg:py-20">
+  <p class="eyebrow shell mb-9 text-center text-ink-4" data-reveal>
+    The stack we build on
+  </p>
+
+  <div class="space-y-3.5">
+    <Marquee items={techStack} duration={55} variant="pill" />
+    <Marquee items={rowTwo} duration={62} variant="pill" reverse />
+  </div>
+</section>

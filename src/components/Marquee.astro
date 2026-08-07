@@ -1,0 +1,45 @@
+---
+interface Props {
+  items: readonly string[];
+  duration?: number;
+  reverse?: boolean;
+  /** Visual treatment of each item. */
+  variant?: 'pill' | 'plain';
+  class?: string;
+}
+
+const {
+  items,
+  duration = 45,
+  reverse = false,
+  variant = 'pill',
+  class: className = '',
+} = Astro.props;
+
+// Duplicated once so the -50% keyframe loops seamlessly.
+const loop = [...items, ...items];
+---
+
+<div class={`marquee mask-fade-x overflow-hidden ${className}`}>
+  <div
+    class="marquee-track"
+    data-direction={reverse ? 'reverse' : undefined}
+    style={`--marquee-duration: ${duration}s`}
+  >
+    {
+      loop.map((item, i) => (
+        <span
+          class:list={[
+            'mx-1.5 flex shrink-0 items-center whitespace-nowrap',
+            variant === 'pill'
+              ? 'rounded-full border border-ink/10 bg-white px-5 py-2.5 text-sm font-semibold text-ink-2'
+              : 'px-6 text-lg font-bold tracking-tight text-ink-3',
+          ]}
+          aria-hidden={i >= items.length ? 'true' : undefined}
+        >
+          {item}
+        </span>
+      ))
+    }
+  </div>
+</div>

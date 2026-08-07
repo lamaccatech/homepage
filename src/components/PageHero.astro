@@ -1,0 +1,61 @@
+---
+interface Props {
+  eyebrow: string;
+  title: string;
+  lead?: string;
+  /** Optional stat/meta chips rendered under the lead. */
+  meta?: string[];
+}
+
+const { eyebrow, title, lead, meta } = Astro.props;
+---
+
+<section class="relative overflow-hidden pb-16 pt-36 sm:pt-44 lg:pb-20">
+  <div class="pointer-events-none absolute inset-0 -z-10" aria-hidden="true">
+    <div
+      class="blob absolute -left-[12%] -top-[30%] h-[34rem] w-[34rem] rounded-full bg-brand-400/16 blur-[110px]"
+    >
+    </div>
+    <div
+      class="blob absolute -right-[6%] -top-[20%] h-[28rem] w-[28rem] rounded-full bg-amber/18 blur-[110px]"
+      style="animation-delay: -9s"
+    >
+    </div>
+    <div class="bg-noise absolute inset-0 opacity-[0.03] mix-blend-multiply"></div>
+  </div>
+
+  <div class="shell">
+    <p class="eyebrow flex items-center gap-2.5 text-brand-600" data-reveal>
+      <span class="inline-block h-1.5 w-1.5 rounded-full bg-current"></span>
+      {eyebrow}
+    </p>
+
+    <h1 class="display-1 mt-6 max-w-4xl text-ink" data-reveal data-reveal-delay="0.06">
+      <Fragment set:html={title} />
+    </h1>
+
+    {
+      lead && (
+        <p
+          class="mt-8 max-w-2xl text-lg leading-relaxed text-ink-3"
+          data-reveal
+          data-reveal-delay="0.12"
+        >
+          {lead}
+        </p>
+      )
+    }
+
+    {
+      meta && (
+        <ul class="mt-9 flex flex-wrap gap-2.5" data-reveal data-reveal-delay="0.18">
+          {meta.map((m) => (
+            <li class="rounded-full border border-ink/12 bg-white/60 px-4 py-2 text-xs font-semibold text-ink-2 backdrop-blur">
+              {m}
+            </li>
+          ))}
+        </ul>
+      )
+    }
+  </div>
+</section>

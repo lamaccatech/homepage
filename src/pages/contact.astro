@@ -1,0 +1,307 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import LampMark from '../components/brand/LampMark.astro';
+import { contact } from '../data/site';
+import { services } from '../data/services';
+
+const budgets = ['Not sure yet', '< Rp 100 jt', 'Rp 100 – 500 jt', '> Rp 500 jt'];
+---
+
+<Base
+  title="Contact"
+  description="Talk to PT Lamacca Kreatif Solusi about custom software, information systems, and digital platforms. Jakarta, Indonesia."
+  transparentHeader
+>
+  <PageHero
+    eyebrow="Contact"
+    title="Tell us what<br />needs fixing."
+    lead="Describe the process that is not working. We will tell you honestly whether we are the right team for it — and roughly what it would take."
+  />
+
+  <section class="shell pb-24 lg:pb-32">
+    <div class="grid gap-10 lg:grid-cols-[1.15fr_0.85fr] lg:gap-14">
+      {/* Enquiry form */}
+      <div
+        class="rounded-[2rem] border border-ink/8 bg-white p-8 sm:p-10 lg:p-12"
+        data-reveal
+      >
+        <h2 class="display-3 text-ink">Start a project</h2>
+        <p class="mt-4 leading-relaxed text-ink-3">
+          Fill this in and we will open WhatsApp with your enquiry ready to send —
+          the fastest way to reach our team. Prefer email? Use the button below the form.
+        </p>
+
+        <form class="mt-10 space-y-6" data-enquiry novalidate>
+          <div class="grid gap-6 sm:grid-cols-2">
+            <label class="block">
+              <span class="text-xs font-bold uppercase tracking-[0.12em] text-ink-3">
+                Your name
+              </span>
+              <input
+                type="text"
+                name="name"
+                required
+                autocomplete="name"
+                class="mt-2.5 w-full rounded-xl border border-ink/12 bg-paper px-4 py-3.5 text-sm text-ink transition-colors duration-300 placeholder:text-ink-4 focus:border-brand-600 focus:outline-none"
+                placeholder="Budi Santoso"
+              />
+            </label>
+
+            <label class="block">
+              <span class="text-xs font-bold uppercase tracking-[0.12em] text-ink-3">
+                Organisation
+              </span>
+              <input
+                type="text"
+                name="organisation"
+                autocomplete="organization"
+                class="mt-2.5 w-full rounded-xl border border-ink/12 bg-paper px-4 py-3.5 text-sm text-ink transition-colors duration-300 placeholder:text-ink-4 focus:border-brand-600 focus:outline-none"
+                placeholder="Dinas / PT / Yayasan"
+              />
+            </label>
+          </div>
+
+          <label class="block">
+            <span class="text-xs font-bold uppercase tracking-[0.12em] text-ink-3">
+              Email
+            </span>
+            <input
+              type="email"
+              name="email"
+              autocomplete="email"
+              class="mt-2.5 w-full rounded-xl border border-ink/12 bg-paper px-4 py-3.5 text-sm text-ink transition-colors duration-300 placeholder:text-ink-4 focus:border-brand-600 focus:outline-none"
+              placeholder="nama@organisasi.co.id"
+            />
+          </label>
+
+          <fieldset>
+            <legend class="text-xs font-bold uppercase tracking-[0.12em] text-ink-3">
+              What do you need?
+            </legend>
+            <div class="mt-3.5 flex flex-wrap gap-2.5">
+              {
+                services.map((service) => (
+                  <label class="cursor-pointer">
+                    <input
+                      type="checkbox"
+                      name="need"
+                      value={service.title}
+                      class="peer sr-only"
+                    />
+                    <span class="inline-block rounded-full border border-ink/12 px-4 py-2.5 text-sm font-medium text-ink-2 transition-colors duration-300 hover:border-ink/30 peer-checked:border-transparent peer-checked:bg-ink peer-checked:text-paper peer-focus-visible:outline peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-brand-600">
+                      {service.title}
+                    </span>
+                  </label>
+                ))
+              }
+            </div>
+          </fieldset>
+
+          <fieldset>
+            <legend class="text-xs font-bold uppercase tracking-[0.12em] text-ink-3">
+              Indicative budget
+            </legend>
+            <div class="mt-3.5 flex flex-wrap gap-2.5">
+              {
+                budgets.map((budget, i) => (
+                  <label class="cursor-pointer">
+                    <input
+                      type="radio"
+                      name="budget"
+                      value={budget}
+                      checked={i === 0}
+                      class="peer sr-only"
+                    />
+                    <span class="inline-block rounded-full border border-ink/12 px-4 py-2.5 text-sm font-medium text-ink-2 transition-colors duration-300 hover:border-ink/30 peer-checked:border-transparent peer-checked:bg-brand-600 peer-checked:text-white peer-focus-visible:outline peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-brand-600">
+                      {budget}
+                    </span>
+                  </label>
+                ))
+              }
+            </div>
+          </fieldset>
+
+          <label class="block">
+            <span class="text-xs font-bold uppercase tracking-[0.12em] text-ink-3">
+              What are you trying to solve?
+            </span>
+            <textarea
+              name="message"
+              rows="5"
+              required
+              class="mt-2.5 w-full resize-y rounded-xl border border-ink/12 bg-paper px-4 py-3.5 text-sm leading-relaxed text-ink transition-colors duration-300 placeholder:text-ink-4 focus:border-brand-600 focus:outline-none"
+              placeholder="We currently track asset inspections on paper and reconcile them in Excel every quarter…"></textarea>
+          </label>
+
+          <p class="hidden text-sm font-semibold text-brand-600" data-form-error role="alert">
+            Please add your name and a short description before continuing.
+          </p>
+
+          <div class="flex flex-wrap items-center gap-3 pt-2">
+            <button
+              type="submit"
+              class="group inline-flex items-center gap-2.5 rounded-full bg-brand-600 px-6 py-3.5 text-sm font-semibold text-white transition-colors duration-300 hover:bg-brand-700"
+              data-magnetic="0.2"
+            >
+              Send via WhatsApp
+              <svg
+                class="h-3.5 w-3.5 transition-transform duration-400 ease-[var(--ease-out-expo)] group-hover:translate-x-1"
+                viewBox="0 0 16 16"
+                fill="none"
+                aria-hidden="true"
+              >
+                <path
+                  d="M2 8h11m0 0L9 4m4 4-4 4"
+                  stroke="currentColor"
+                  stroke-width="1.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"></path>
+              </svg>
+            </button>
+
+            <button
+              type="button"
+              class="inline-flex items-center gap-2.5 rounded-full border border-ink/15 px-6 py-3.5 text-sm font-semibold text-ink transition-colors duration-300 hover:border-ink/35 hover:bg-paper"
+              data-send-email
+            >
+              Send as email instead
+            </button>
+          </div>
+        </form>
+      </div>
+
+      {/* Contact details */}
+      <div class="space-y-5" data-reveal data-reveal-delay="0.08">
+        <div
+          class="relative overflow-hidden rounded-[2rem] bg-ink p-8 text-paper sm:p-10"
+        >
+          <LampMark
+            class="pointer-events-none absolute -bottom-12 -right-8 h-52 w-auto text-white/[0.05]"
+          />
+          <h2 class="relative eyebrow text-brand-400">Reach us directly</h2>
+
+          <ul class="relative mt-8 space-y-6">
+            <li>
+              <p class="text-xs font-semibold uppercase tracking-wider text-paper/40">
+                Email
+              </p>
+              <a
+                href={`mailto:${contact.email}`}
+                class="mt-1.5 block text-lg font-bold tracking-tight transition-colors duration-300 hover:text-brand-400"
+              >
+                {contact.email}
+              </a>
+            </li>
+            <li>
+              <p class="text-xs font-semibold uppercase tracking-wider text-paper/40">
+                Phone / WhatsApp
+              </p>
+              <a
+                href={contact.phoneHref}
+                class="mt-1.5 block text-lg font-bold tracking-tight transition-colors duration-300 hover:text-brand-400"
+              >
+                {contact.phone}
+              </a>
+            </li>
+            <li>
+              <p class="text-xs font-semibold uppercase tracking-wider text-paper/40">
+                Office
+              </p>
+              <p class="mt-1.5 leading-relaxed text-paper/70">
+                {contact.address.street}<br />
+                {contact.address.district}<br />
+                {contact.address.city}, {contact.address.region} {contact.address.postcode}
+              </p>
+            </li>
+            <li>
+              <p class="text-xs font-semibold uppercase tracking-wider text-paper/40">
+                Hours
+              </p>
+              <p class="mt-1.5 text-paper/70">{contact.hours}</p>
+            </li>
+          </ul>
+        </div>
+
+        <div class="rounded-[2rem] border border-ink/8 bg-white p-8 sm:p-10">
+          <h2 class="eyebrow text-ink-4">What happens next</h2>
+          <ol class="mt-7 space-y-5">
+            {
+              [
+                'We reply within one working day.',
+                'A 30-minute call to understand the process behind the request.',
+                'A written scope with indicative timeline and cost — no obligation.',
+              ].map((step, i) => (
+                <li class="flex gap-4">
+                  <span class="text-xs font-bold tabular-nums text-brand-600">
+                    0{i + 1}
+                  </span>
+                  <span class="text-sm leading-relaxed text-ink-2">{step}</span>
+                </li>
+              ))
+            }
+          </ol>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<script>
+  const WHATSAPP = '6281342337729';
+  const EMAIL = 'info@lamacca.co.id';
+
+  const form = document.querySelector<HTMLFormElement>('[data-enquiry]');
+  const error = document.querySelector<HTMLElement>('[data-form-error]');
+  const emailButton = document.querySelector<HTMLButtonElement>('[data-send-email]');
+
+  /** Build a readable enquiry from the form fields. */
+  function compose(data: FormData) {
+    const needs = data.getAll('need').join(', ') || 'Not specified';
+
+    return [
+      'Halo Lamacca, saya ingin berdiskusi tentang sebuah proyek.',
+      '',
+      `Name: ${data.get('name')}`,
+      `Organisation: ${data.get('organisation') || '—'}`,
+      `Email: ${data.get('email') || '—'}`,
+      `Needs: ${needs}`,
+      `Budget: ${data.get('budget')}`,
+      '',
+      'Details:',
+      String(data.get('message') ?? ''),
+    ].join('\n');
+  }
+
+  function validate(data: FormData) {
+    const ok =
+      String(data.get('name') ?? '').trim() !== '' &&
+      String(data.get('message') ?? '').trim() !== '';
+    error?.classList.toggle('hidden', ok);
+    return ok;
+  }
+
+  if (form) {
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const data = new FormData(form);
+      if (!validate(data)) return;
+
+      window.open(
+        `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(compose(data))}`,
+        '_blank',
+        'noopener',
+      );
+    });
+
+    emailButton?.addEventListener('click', () => {
+      const data = new FormData(form);
+      if (!validate(data)) return;
+
+      const subject = `Project enquiry — ${data.get('name')}`;
+      window.location.href = `mailto:${EMAIL}?subject=${encodeURIComponent(
+        subject,
+      )}&body=${encodeURIComponent(compose(data))}`;
+    });
+  }
+</script>

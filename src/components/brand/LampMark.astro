@@ -1,0 +1,19 @@
+---
+/** Lamacca lamp mark. Inherits colour via currentColor. */
+interface Props {
+  class?: string;
+  title?: string;
+}
+
+const { class: className, title } = Astro.props;
+---
+
+<svg
+  viewBox="0 0 900 753"
+  class={className}
+  role={title ? 'img' : undefined}
+  aria-hidden={title ? undefined : 'true'}
+>
+  {title && <title>{title}</title>}
+  <use href="#lamacca-lamp" />
+</svg>

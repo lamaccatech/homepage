@@ -1,0 +1,15 @@
+---
+import Marquee from '../Marquee.astro';
+import { clients } from '../../data/company';
+---
+
+<section class="relative border-y border-ink/8 bg-paper-2/60 py-10" aria-label="Clients">
+  <p
+    class="eyebrow shell mb-7 text-center text-ink-4"
+    data-reveal
+  >
+    Trusted by ministries, agencies, and enterprises across Indonesia
+  </p>
+
+  <Marquee items={clients} duration={60} variant="pill" />
+</section>

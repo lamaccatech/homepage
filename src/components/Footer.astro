@@ -1,0 +1,123 @@
+---
+import Logo from './Logo.astro';
+import LampMark from './brand/LampMark.astro';
+import { nav, contact, site } from '../data/site';
+import { services } from '../data/services';
+
+const year = new Date().getFullYear();
+---
+
+<footer class="relative overflow-hidden bg-ink text-paper">
+  {/* Oversized lamp watermark, bled off the edge */}
+  <LampMark
+    class="pointer-events-none absolute -bottom-24 -right-16 h-[26rem] w-auto text-white/[0.035] sm:-right-4"
+  />
+
+  <div class="shell relative py-20 lg:py-24">
+    <div class="grid gap-14 lg:grid-cols-[1.4fr_1fr_1fr_1.2fr]">
+      <div>
+        <Logo tone="paper" class="group" />
+        <p class="mt-6 max-w-xs text-sm leading-relaxed text-paper/55">
+          An Indonesian technology company building custom software, integrated
+          information systems, and digital platforms — since {site.founded}.
+        </p>
+        <p class="mt-6 text-xs font-semibold uppercase tracking-[0.16em] text-brand-400">
+          {site.descriptor}
+        </p>
+      </div>
+
+      <div>
+        <h2 class="text-xs font-bold uppercase tracking-[0.16em] text-paper/40">
+          Navigate
+        </h2>
+        <ul class="mt-5 space-y-3">
+          <li>
+            <a
+              href="/"
+              class="text-sm text-paper/70 transition-colors duration-300 hover:text-brand-400"
+            >
+              Home
+            </a>
+          </li>
+          {
+            nav.map((item) => (
+              <li>
+                <a
+                  href={item.href}
+                  class="text-sm text-paper/70 transition-colors duration-300 hover:text-brand-400"
+                >
+                  {item.label}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+
+      <div>
+        <h2 class="text-xs font-bold uppercase tracking-[0.16em] text-paper/40">
+          Services
+        </h2>
+        <ul class="mt-5 space-y-3">
+          {
+            services.map((service) => (
+              <li>
+                <a
+                  href={`/services#${service.slug}`}
+                  class="text-sm text-paper/70 transition-colors duration-300 hover:text-brand-400"
+                >
+                  {service.title}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+
+      <div>
+        <h2 class="text-xs font-bold uppercase tracking-[0.16em] text-paper/40">
+          Get in touch
+        </h2>
+        <ul class="mt-5 space-y-4 text-sm text-paper/70">
+          <li>
+            <a
+              href={`mailto:${contact.email}`}
+              class="transition-colors duration-300 hover:text-brand-400"
+            >
+              {contact.email}
+            </a>
+          </li>
+          <li>
+            <a
+              href={contact.phoneHref}
+              class="transition-colors duration-300 hover:text-brand-400"
+            >
+              {contact.phone}
+            </a>
+          </li>
+          <li class="leading-relaxed text-paper/55">
+            {contact.address.street}<br />
+            {contact.address.district}<br />
+            {contact.address.city}, {contact.address.region} {contact.address.postcode}
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div
+      class="mt-16 flex flex-col gap-4 border-t border-white/10 pt-8 sm:flex-row sm:items-center sm:justify-between"
+    >
+      <p class="text-xs text-paper/45">
+        © {year} {site.legalName}. All rights reserved.
+      </p>
+      <p class="text-xs text-paper/45">
+        Built in Jakarta · <a
+          href={contact.whatsapp}
+          rel="noopener noreferrer"
+          target="_blank"
+          class="transition-colors duration-300 hover:text-brand-400">WhatsApp us</a
+        >
+      </p>
+    </div>
+  </div>
+</footer>

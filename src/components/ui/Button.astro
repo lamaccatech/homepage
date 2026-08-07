@@ -1,0 +1,54 @@
+---
+interface Props {
+  href: string;
+  variant?: 'primary' | 'ink' | 'ghost' | 'paper';
+  class?: string;
+  magnetic?: boolean;
+  arrow?: boolean;
+}
+
+const {
+  href,
+  variant = 'primary',
+  class: className = '',
+  magnetic = true,
+  arrow = true,
+} = Astro.props;
+
+const variants = {
+  primary: 'bg-brand-600 text-white hover:bg-brand-700',
+  ink: 'bg-ink text-paper hover:bg-brand-600',
+  ghost: 'border border-ink/15 text-ink hover:border-ink/35 hover:bg-white',
+  paper: 'bg-paper text-ink hover:bg-white',
+};
+---
+
+<a
+  href={href}
+  class:list={[
+    'group inline-flex items-center gap-2.5 rounded-full px-6 py-3.5 text-sm font-semibold transition-colors duration-300',
+    variants[variant],
+    className,
+  ]}
+  data-magnetic={magnetic ? '0.2' : undefined}
+>
+  <slot />
+  {
+    arrow && (
+      <svg
+        class="h-3.5 w-3.5 transition-transform duration-400 ease-[var(--ease-out-expo)] group-hover:translate-x-1"
+        viewBox="0 0 16 16"
+        fill="none"
+        aria-hidden="true"
+      >
+        <path
+          d="M2 8h11m0 0L9 4m4 4-4 4"
+          stroke="currentColor"
+          stroke-width="1.8"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+      </svg>
+    )
+  }
+</a>

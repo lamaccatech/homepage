@@ -1,0 +1,15 @@
+{
+  // Cloudflare Workers static-asset deploy. `npm run deploy` builds to ./dist
+  // and uploads it; Astro emits 404.html, which is served for unknown paths.
+  //
+  // Must be deployed from the Lamaccatech Cloudflare account
+  // (cb0a169988993c1cc6b1d1ad836bda6c) — that is where the lamacca.com zone
+  // lives. Check with `npx wrangler whoami` before deploying.
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "lamacca",
+  "compatibility_date": "2026-08-01",
+  "assets": {
+    "directory": "./dist",
+    "not_found_handling": "404-page"
+  }
+}

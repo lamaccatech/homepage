@@ -1,0 +1,225 @@
+---
+import type { GetStaticPaths } from 'astro';
+import { Image } from 'astro:assets';
+import Base from '../../layouts/Base.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import LampMark from '../../components/brand/LampMark.astro';
+import { work } from '../../data/work';
+import { accent } from '../../lib/accents';
+
+export const getStaticPaths = (() => {
+  return work.map((item, i) => ({
+    params: { slug: item.slug },
+    props: {
+      item,
+      // Wrap around so every project has a "next" to move on to.
+      next: work[(i + 1) % work.length],
+    },
+  }));
+}) satisfies GetStaticPaths;
+
+const { item, next } = Astro.props;
+const a = accent[item.accent];
+---
+
+<Base title={item.title} description={item.summary} transparentHeader>
+  <article>
+    <header class="relative overflow-hidden pb-16 pt-36 sm:pt-44">
+      <div class="pointer-events-none absolute inset-0 -z-10" aria-hidden="true">
+        <div
+          class="blob absolute -left-[10%] -top-[28%] h-[32rem] w-[32rem] rounded-full bg-brand-400/14 blur-[110px]"
+        >
+        </div>
+        <div
+          class="blob absolute -right-[6%] -top-[18%] h-[26rem] w-[26rem] rounded-full bg-amber/16 blur-[110px]"
+          style="animation-delay: -9s"
+        >
+        </div>
+      </div>
+
+      <div class="shell">
+        <a
+          href="/work"
+          class="group inline-flex items-center gap-2 text-sm font-semibold text-ink-3 transition-colors duration-300 hover:text-ink"
+          data-reveal
+        >
+          <svg
+            class="h-3.5 w-3.5 transition-transform duration-400 ease-[var(--ease-out-expo)] group-hover:-translate-x-1"
+            viewBox="0 0 16 16"
+            fill="none"
+            aria-hidden="true"
+          >
+            <path
+              d="M14 8H3m0 0 4-4m-4 4 4 4"
+              stroke="currentColor"
+              stroke-width="1.8"
+              stroke-linecap="round"
+              stroke-linejoin="round"></path>
+          </svg>
+          All work
+        </a>
+
+        <div class="mt-8 flex flex-wrap items-center gap-2.5" data-reveal>
+          <span
+            class:list={[
+              'rounded-full px-3.5 py-1.5 text-[0.65rem] font-bold uppercase tracking-[0.12em]',
+              a.soft,
+              a.text,
+            ]}
+          >
+            {item.sector}
+          </span>
+          {
+            item.platforms.map((p) => (
+              <span class="rounded-full border border-ink/12 bg-white/60 px-3.5 py-1.5 text-[0.65rem] font-semibold text-ink-3 backdrop-blur">
+                {p}
+              </span>
+            ))
+          }
+          <span
+            class="rounded-full border border-ink/12 bg-white/60 px-3.5 py-1.5 text-[0.65rem] font-semibold text-ink-3 backdrop-blur"
+          >
+            {item.year}
+          </span>
+        </div>
+
+        <h1 class="display-1 mt-7 max-w-4xl text-ink" data-reveal data-reveal-delay="0.06">
+          {item.title}
+        </h1>
+
+        <p
+          class="mt-8 max-w-2xl text-lg leading-relaxed text-ink-3"
+          data-reveal
+          data-reveal-delay="0.12"
+        >
+          {item.summary}
+        </p>
+      </div>
+    </header>
+
+    <section class="shell pb-20 lg:pb-28">
+      <div class="grid gap-10 lg:grid-cols-[0.7fr_1.3fr] lg:gap-16">
+        {/* Client panel */}
+        <aside class="lg:sticky lg:top-28 lg:self-start" data-reveal>
+          <div
+            class="relative overflow-hidden rounded-[var(--radius-card)] bg-ink p-8 text-paper"
+          >
+            <LampMark
+              class="pointer-events-none absolute -bottom-10 -right-8 h-48 w-auto text-white/[0.05]"
+            />
+            <h2 class="relative eyebrow text-brand-400">
+              {item.clients.length > 1 ? 'Clients' : 'Client'}
+            </h2>
+            <ul class="relative mt-6 space-y-3">
+              {
+                item.clients.map((client) => (
+                  <li class="text-lg font-bold leading-snug tracking-tight">
+                    {client}
+                  </li>
+                ))
+              }
+            </ul>
+
+            <dl class="relative mt-8 space-y-4 border-t border-white/12 pt-7 text-sm">
+              <div class="flex justify-between gap-4">
+                <dt class="text-paper/45">Sector</dt>
+                <dd class="font-semibold">{item.sector}</dd>
+              </div>
+              <div class="flex justify-between gap-4">
+                <dt class="text-paper/45">Delivered</dt>
+                <dd class="font-semibold">{item.year}</dd>
+              </div>
+              <div class="flex justify-between gap-4">
+                <dt class="text-paper/45">Platform</dt>
+                <dd class="text-right font-semibold">{item.platforms.join(', ')}</dd>
+              </div>
+            </dl>
+          </div>
+
+          {
+            item.image && (
+              <figure class="mt-5 overflow-hidden rounded-[var(--radius-card)] border border-ink/8 bg-paper-2">
+                <Image
+                  src={item.image}
+                  alt={`Interface screens from ${item.title}`}
+                  widths={[400, 600, 800]}
+                  sizes="(min-width: 1024px) 420px, (min-width: 640px) 60vw, 90vw"
+                  class="w-full"
+                />
+              </figure>
+            )
+          }
+        </aside>
+
+        {/* Scope */}
+        <div>
+          <h2 class="display-3 text-ink" data-reveal>What we delivered</h2>
+          <p class="mt-5 max-w-xl leading-relaxed text-ink-3" data-reveal data-reveal-delay="0.06">
+            The modules and capabilities built for this engagement.
+          </p>
+
+          <ul class="mt-10 grid gap-4 sm:grid-cols-2" data-reveal-group>
+            {
+              item.scope.map((s, i) => (
+                <li class="group flex items-start gap-4 rounded-2xl border border-ink/8 bg-white p-5 transition-colors duration-400 hover:border-ink/18">
+                  <span
+                    class:list={[
+                      'grid h-7 w-7 shrink-0 place-items-center rounded-lg text-[0.6rem] font-bold tabular-nums transition-transform duration-500 ease-[var(--ease-spring)] group-hover:scale-110',
+                      a.soft,
+                      a.text,
+                    ]}
+                  >
+                    {String(i + 1).padStart(2, '0')}
+                  </span>
+                  <span class="pt-1 text-sm leading-relaxed text-ink-2">{s}</span>
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    {/* Next project */}
+    <section class="border-t border-ink/10">
+      <a
+        href={`/work/${next.slug}`}
+        class="group block bg-paper-2/40 py-16 transition-colors duration-500 hover:bg-paper-2/80"
+      >
+        <div class="shell flex flex-wrap items-center justify-between gap-6">
+          <div>
+            <p class="eyebrow text-ink-4">Next project</p>
+            <p
+              class="display-3 mt-4 text-ink transition-transform duration-500 ease-[var(--ease-out-expo)] group-hover:translate-x-2"
+            >
+              {next.title}
+            </p>
+            <p class="mt-3 text-sm text-ink-3">{next.clients.join(' · ')}</p>
+          </div>
+          <span
+            class="grid h-14 w-14 place-items-center rounded-full border border-ink/12 transition-colors duration-400 group-hover:border-brand-600 group-hover:bg-brand-600 group-hover:text-white"
+          >
+            <svg
+              class="h-5 w-5 transition-transform duration-400 ease-[var(--ease-out-expo)] group-hover:translate-x-1"
+              viewBox="0 0 16 16"
+              fill="none"
+              aria-hidden="true"
+            >
+              <path
+                d="M2 8h11m0 0L9 4m4 4-4 4"
+                stroke="currentColor"
+                stroke-width="1.8"
+                stroke-linecap="round"
+                stroke-linejoin="round"></path>
+            </svg>
+          </span>
+        </div>
+      </a>
+    </section>
+  </article>
+
+  <CtaBand
+    title="Have a system like this in mind?"
+    lead="Most of what we build starts with an organisation describing a process that no longer fits in a spreadsheet."
+  />
+</Base>

@@ -1,0 +1,44 @@
+---
+import Button from './ui/Button.astro';
+import LampMark from './brand/LampMark.astro';
+import { contact } from '../data/site';
+
+interface Props {
+  title?: string;
+  lead?: string;
+}
+
+const {
+  title = "Let's build the future through innovation and collaboration.",
+  lead = 'Tell us what your organisation is trying to fix. We will tell you honestly whether we are the right team for it.',
+} = Astro.props;
+---
+
+<section class="shell py-20 lg:py-28">
+  <div
+    class="relative overflow-hidden rounded-[2.5rem] bg-brand-600 px-8 py-16 text-white sm:px-14 lg:px-20 lg:py-24"
+    data-reveal
+  >
+    <LampMark
+      class="pointer-events-none absolute -bottom-20 -right-10 h-[24rem] w-auto text-white/[0.09] sm:right-4"
+    />
+    <div class="bg-noise pointer-events-none absolute inset-0 opacity-[0.06]"></div>
+
+    <div class="relative max-w-2xl">
+      <p class="eyebrow text-white/60">Start a conversation</p>
+      <h2 class="display-2 mt-5 text-white">{title}</h2>
+      <p class="mt-6 max-w-xl text-lg leading-relaxed text-white/75">{lead}</p>
+
+      <div class="mt-10 flex flex-wrap items-center gap-3">
+        <Button href="/contact" variant="paper">Start a project</Button>
+        <a
+          href={`mailto:${contact.email}`}
+          class="inline-flex items-center gap-2.5 rounded-full border border-white/30 px-6 py-3.5 text-sm font-semibold text-white transition-colors duration-300 hover:border-white/70 hover:bg-white/10"
+          data-magnetic="0.2"
+        >
+          {contact.email}
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
