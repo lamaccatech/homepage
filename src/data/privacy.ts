@@ -26,10 +26,18 @@ export interface PolicySection {
   note?: string;
 }
 
+export type PolicyLang = 'en' | 'id';
+
 export interface Policy {
   slug: string;
   app: string;
   country: string;
+  /**
+   * Language the policy body is written in. A policy that also exists inside
+   * its own app is published here in the same language it appears there — a
+   * fallback that says something different is not a fallback.
+   */
+  lang: PolicyLang;
   androidPackage: string;
   iosBundleId: string;
   controller: {
@@ -44,7 +52,48 @@ export interface Policy {
   summary: string;
   highlights: { label: string; body: string }[];
   sections: PolicySection[];
+  /** Slug of a sibling policy to cross-link, for apps shipped per market. */
+  related?: string;
+  /**
+   * Number the sections in the heading and contents rail. Off for policies
+   * whose headings already carry the source document's own numbering, which
+   * must not be renumbered here.
+   */
+  autoNumber?: boolean;
 }
+
+/** UI chrome around the policy body, so a page reads in one language throughout. */
+export const labels: Record<
+  PolicyLang,
+  {
+    eyebrow: string;
+    contents: string;
+    effective: string;
+    updated: string;
+    relatedEyebrow: string;
+    relatedHeading: (country: string) => string;
+    relatedCta: (app: string) => string;
+  }
+> = {
+  en: {
+    eyebrow: 'Privacy policy',
+    contents: 'Contents',
+    effective: 'Effective',
+    updated: 'Last updated',
+    relatedEyebrow: 'Other markets',
+    relatedHeading: (country) => `Looking for the ${country} app?`,
+    relatedCta: (app) => `Read the ${app} policy`,
+  },
+  id: {
+    eyebrow: 'Kebijakan privasi',
+    contents: 'Daftar Isi',
+    effective: 'Berlaku sejak',
+    updated: 'Terakhir diperbarui',
+    relatedEyebrow: 'Aplikasi lain',
+    relatedHeading: (country) => `Mencari aplikasi ${country}?`,
+    relatedCta: (app) => `Baca kebijakan ${app}`,
+  },
+};
 
 /** The developer that operates the app on the controller's behalf. */
 const processor = {
@@ -109,6 +158,7 @@ function buildPolicy(config: PolicyConfig): Policy {
     slug,
     app,
     country,
+    lang: 'en',
     androidPackage,
     iosBundleId,
     controller,
@@ -585,7 +635,232 @@ const malaysia = buildPolicy({
   landUnit: 'acres',
 });
 
-export const policies: Policy[] = [indonesia, malaysia];
+indonesia.related = malaysia.slug;
+malaysia.related = indonesia.slug;
+
+/**
+ * SDS — reproduced from the policy already published inside the app at
+ * app.sds.co.id (`apps/sekaiichi/admin/layers/landing/pages/privacy-policy`
+ * in the lamaccatech monorepo). This copy exists so the store listings keep a
+ * reachable policy URL if that domain is unavailable, so it stays in Indonesian
+ * and keeps the original effective date: a fallback that differs in language or
+ * substance from the policy it stands in for is not a fallback.
+ *
+ * Only the presentation is ours. Do not add or reword claims here without
+ * making the same change at the source.
+ */
+const sds: Policy = {
+  slug: 'sds',
+  app: 'SDS',
+  country: 'Indonesia',
+  lang: 'id',
+  androidPackage: 'com.sekaiichiservice.mobile',
+  iosBundleId: 'com.sekaiichiservice.mobile',
+  controller: {
+    name: 'PT Sekaiichi Dwiputra Service',
+    address:
+      'Jl. Mampang Prapatan XIV No. 33a, RT.11/RW.4, Tegal Parang, Kec. Mampang Prapatan, Jakarta Selatan, DKI Jakarta 12790, Indonesia',
+    email: 'sekaiichi@sds.co.id',
+    phone: '+62 821 2316 2600 (WhatsApp)',
+  },
+  effective: '1 Januari 2025',
+  updated: '1 Januari 2025',
+  summary:
+    'Bagaimana PT Sekaiichi Dwiputra Service mengumpulkan, menggunakan, mengungkapkan, dan melindungi data pribadi Anda di aplikasi SDS.',
+  // Headings keep the published document's own 1–9 numbering.
+  autoNumber: false,
+
+  highlights: [
+    {
+      label: 'Aplikasi internal, bukan aplikasi publik',
+      body: 'SDS dibangun sebagai aplikasi layanan internal yang ditujukan khusus untuk karyawan aktif dan calon karyawan di lingkungan PT Sekaiichi Dwiputra Service.',
+    },
+    {
+      label: 'Tidak dijual, tidak disewakan',
+      body: 'Kami tidak akan pernah menjual, menyewakan, atau membagikan informasi pribadi Anda kepada pihak ketiga untuk tujuan pemasaran atau komersial lainnya.',
+    },
+    {
+      label: 'Akses terbatas',
+      body: 'Data dan dokumen Anda hanya dapat diakses oleh Anda sebagai pemilik data dan oleh personel administrasi/HRD yang berwenang.',
+    },
+    {
+      label: 'Izin sesuai kebutuhan fitur',
+      body: 'Izin lokasi, kamera, dan penyimpanan diminta hanya untuk fitur absensi, verifikasi foto, dan pengunggahan dokumen kepegawaian.',
+    },
+  ],
+
+  sections: [
+    {
+      id: 'tentang',
+      heading: 'Tentang kebijakan ini',
+      body: [
+        'PT Sekaiichi Dwiputra Service (“kami”, “milik kami”, atau “kita”) membangun aplikasi SDS sebagai aplikasi layanan internal yang ditujukan khusus untuk karyawan aktif dan calon karyawan (“Anda” atau “Pengguna”) di lingkungan PT Sekaiichi Dwiputra Service.',
+        'Kebijakan Privasi ini menjelaskan bagaimana kami mengumpulkan, menggunakan, mengungkapkan, dan melindungi informasi Anda saat Anda menggunakan aplikasi seluler kami, SDS. Harap baca kebijakan privasi ini dengan saksama. Jika Anda tidak setuju dengan ketentuan kebijakan privasi ini, mohon untuk tidak mengakses aplikasi ini.',
+        'Kami berkomitmen untuk melindungi privasi data Anda sebagai prioritas utama.',
+      ],
+      groups: [
+        {
+          title: 'Aplikasi yang dicakup kebijakan ini',
+          items: [
+            'Nama aplikasi: SDS',
+            'Nama paket Google Play: com.sekaiichiservice.mobile',
+            'Pengidentifikasi bundel Apple: com.sekaiichiservice.mobile',
+            'Pengendali data: PT Sekaiichi Dwiputra Service',
+            'Pengembang dan pemroses data: PT Lamacca Kreatif Solusi',
+          ],
+        },
+      ],
+      note: 'Halaman ini memuat kebijakan yang sama dengan yang diterbitkan di dalam aplikasi pada app.sds.co.id. Kebijakan tersebut diterbitkan di dua tempat agar tetap dapat diakses apabila salah satu alamat sedang tidak tersedia.',
+    },
+
+    {
+      id: 'informasi',
+      heading: '1. Informasi yang Kami Kumpulkan',
+      body: [
+        'Kami dapat mengumpulkan informasi tentang Anda dalam berbagai cara. Informasi yang kami kumpulkan melalui Aplikasi bergantung pada konten dan materi yang Anda gunakan, dan mencakup:',
+      ],
+      groups: [
+        {
+          title: 'A. Data Pribadi yang Anda Berikan Secara Langsung',
+          body: 'Kami mengumpulkan informasi identitas pribadi yang Anda berikan secara sukarela saat Anda melengkapi profil, mendaftar, atau menggunakan fitur-fitur tertentu dalam Aplikasi. Informasi ini krusial untuk keperluan administrasi kepegawaian dan kepatuhan hukum. Informasi tersebut meliputi:',
+          items: [
+            'Data identitas diri (Nama Lengkap, dll.)',
+            'Pindaian atau foto Kartu Tanda Penduduk (KTP)',
+            'Pindaian atau foto Kartu Keluarga (KK)',
+            'Curriculum Vitae (CV)',
+            'Pindaian atau foto Nomor Pokok Wajib Pajak (NPWP)',
+            'Pindaian atau foto Ijazah terakhir',
+            'Pindaian atau foto Surat Keterangan Catatan Kepolisian (SKCK)',
+            'Pindaian atau foto Surat Pengalaman Kerja (Paklaring)',
+            'Informasi lain yang relevan dengan proses kepegawaian.',
+          ],
+        },
+        {
+          title: 'B. Data yang Dikumpulkan Secara Otomatis Saat Menggunakan Aplikasi',
+          items: [
+            '<strong>Informasi Lokasi:</strong> Untuk menggunakan fitur absensi, kami akan meminta izin untuk mengakses informasi berbasis lokasi dari perangkat seluler Anda saat Anda menggunakan Aplikasi, untuk mencatat lokasi kehadiran Anda.',
+            '<strong>Akses Kamera:</strong> Kami akan meminta izin untuk mengakses kamera perangkat Anda untuk memungkinkan Anda mengambil foto selfie saat melakukan absensi dan mengambil foto untuk laporan progres kerja.',
+            '<strong>Akses Galeri/Penyimpanan (Storage):</strong> Kami akan meminta izin untuk mengakses foto dari galeri/penyimpanan perangkat Anda untuk memungkinkan Anda mengunggah dokumen pendukung dan foto progres kerja yang sudah ada di perangkat Anda.',
+          ],
+        },
+      ],
+    },
+
+    {
+      id: 'penggunaan',
+      heading: '2. Bagaimana Kami Menggunakan Informasi Anda',
+      body: [
+        'Memiliki informasi yang akurat tentang Anda memungkinkan kami untuk memberikan pengalaman yang lancar, efisien, dan disesuaikan. Secara khusus, kami menggunakan informasi yang dikumpulkan tentang Anda melalui Aplikasi untuk:',
+      ],
+      list: [
+        '<strong>Verifikasi Identitas:</strong> Memastikan identitas karyawan dan calon karyawan untuk keperluan administrasi Sumber Daya Manusia (SDM).',
+        '<strong>Manajemen Absensi:</strong> Mengelola dan mencatat kehadiran karyawan secara akurat menggunakan data lokasi dan verifikasi foto selfie.',
+        '<strong>Pelaporan Progres Kerja:</strong> Memfasilitasi karyawan (khususnya CSO atau SPV) untuk mengunggah bukti hasil pekerjaan mereka.',
+        '<strong>Administrasi Kepegawaian:</strong> Mengelola data karyawan, memproses pengajuan cuti, izin, atau laporan ketidakhadiran lainnya.',
+        '<strong>Penyimpanan Dokumen:</strong> Menyimpan dokumen kepegawaian Anda secara aman di server kami, yang dapat Anda akses kembali melalui profil Anda di aplikasi.',
+        '<strong>Komunikasi Internal:</strong> Menghubungi Anda mengenai urusan pekerjaan, pembaruan aplikasi, atau pengumuman perusahaan.',
+      ],
+    },
+
+    {
+      id: 'pembagian',
+      heading: '3. Pembagian dan Pengungkapan Informasi',
+      body: [
+        'Informasi Anda dijaga kerahasiaannya dan hanya akan dibagikan dalam lingkup berikut:',
+      ],
+      list: [
+        '<strong>Pihak Internal Perusahaan:</strong> Informasi pribadi dan dokumen Anda hanya dapat diakses oleh Anda sebagai pemilik data dan personel administrasi/HRD PT Sekaiichi Dwiputra Service yang berwenang untuk tujuan manajemen kepegawaian.',
+        '<strong>Kewajiban Hukum:</strong> Jika diwajibkan oleh hukum, panggilan pengadilan, atau proses hukum lainnya, kami dapat membagikan informasi Anda sebagai tanggapan terhadap permintaan dari otoritas publik.',
+      ],
+      note: 'Kami <strong>tidak akan pernah</strong> menjual, menyewakan, atau membagikan informasi pribadi Anda kepada pihak ketiga untuk tujuan pemasaran atau komersial lainnya.',
+    },
+
+    {
+      id: 'keamanan',
+      heading: '4. Keamanan Data',
+      body: [
+        'Kami menggunakan langkah-langkah keamanan administratif, teknis, dan fisik yang wajar untuk membantu melindungi informasi pribadi Anda. Semua data yang Anda unggah disimpan di server yang aman.',
+        'Meskipun kami telah mengambil langkah-langkah yang wajar untuk mengamankan informasi pribadi yang Anda berikan kepada kami, perlu diketahui bahwa terlepas dari upaya kami, tidak ada langkah-langkah keamanan yang sempurna atau tidak dapat ditembus, dan tidak ada metode transmisi data yang dapat dijamin terhadap penyadapan atau penyalahgunaan lainnya.',
+      ],
+    },
+
+    {
+      id: 'penyimpanan',
+      heading: '5. Penyimpanan Data',
+      body: [
+        'Kami akan menyimpan informasi pribadi Anda selama masa kerja Anda di PT Sekaiichi Dwiputra Service dan untuk periode setelahnya sesuai dengan yang diwajibkan oleh peraturan perundang-undangan yang berlaku di Indonesia mengenai ketenagakerjaan dan pengarsipan data.',
+      ],
+    },
+
+    {
+      id: 'hak',
+      heading: '6. Hak Anda sebagai Pengguna',
+      body: ['Anda memiliki hak-hak berikut terkait data pribadi Anda:'],
+      list: [
+        '<strong>Hak Akses:</strong> Anda berhak untuk melihat data pribadi dan dokumen yang telah Anda unggah melalui profil Anda di dalam aplikasi.',
+        '<strong>Hak Koreksi:</strong> Anda dapat meminta untuk memperbarui atau mengoreksi data Anda yang tidak akurat dengan menghubungi admin HRD.',
+      ],
+      note: 'Untuk permintaan penutupan akun dan penghapusan data, hubungi admin HRD Anda. Akun SDS dibuat oleh perusahaan, bukan didaftarkan sendiri, sehingga penutupan akun dilakukan melalui HRD. Menghapus aplikasi dari perangkat tidak menutup akun Anda atau menghapus data yang sudah tercatat.',
+    },
+
+    {
+      id: 'izin',
+      heading: '7. Penjelasan Izin Akses Aplikasi (Permissions)',
+      body: [
+        'Untuk memastikan semua fitur berfungsi dengan baik, aplikasi SDS akan meminta izin akses berikut:',
+      ],
+      groups: [
+        {
+          title: 'Lokasi (android.permission.ACCESS_FINE_LOCATION)',
+          body: 'Tujuan: Dibutuhkan untuk fitur absensi guna mencatat lokasi akurat saat Anda melakukan absensi masuk dan pulang kerja.',
+        },
+        {
+          title: 'Kamera (android.permission.CAMERA)',
+          body: 'Tujuan: Dibutuhkan untuk (1) mengambil foto selfie sebagai bukti verifikasi saat absensi dan (2) mengambil foto progres pekerjaan untuk diunggah.',
+        },
+        {
+          title: 'Penyimpanan/Galeri (android.permission.READ_EXTERNAL_STORAGE)',
+          body: 'Tujuan: Dibutuhkan untuk memungkinkan Anda memilih dan mengunggah dokumen-dokumen pendukung (KTP, KK, CV, dll.) dan foto progres kerja dari galeri ponsel Anda.',
+        },
+      ],
+      note: 'Aplikasi hanya mengakses lokasi saat Aplikasi sedang digunakan. Aplikasi tidak meminta izin lokasi latar belakang (ACCESS_BACKGROUND_LOCATION) dan tidak melacak posisi Anda ketika Aplikasi ditutup.',
+    },
+
+    {
+      id: 'perubahan',
+      heading: '8. Perubahan pada Kebijakan Privasi Ini',
+      body: [
+        'Kami dapat memperbarui Kebijakan Privasi ini dari waktu ke waktu. Versi yang diperbarui akan ditandai dengan “Tanggal Efektif” yang diperbarui dan akan berlaku segera setelah dapat diakses. Kami menganjurkan Anda untuk meninjau kebijakan privasi ini secara berkala agar tetap mendapat informasi tentang bagaimana kami melindungi informasi Anda.',
+      ],
+    },
+
+    {
+      id: 'kontak',
+      heading: '9. Hubungi Kami',
+      body: [
+        'Jika Anda memiliki pertanyaan atau komentar tentang Kebijakan Privasi ini, silakan hubungi kami di:',
+      ],
+      groups: [
+        {
+          title: 'PT Sekaiichi Dwiputra Service',
+          body: 'Pengendali data',
+          items: [
+            'Jl. Mampang Prapatan XIV No. 33a, RT.11/RW.4, Tegal Parang, Kec. Mampang Prapatan, Jakarta Selatan, DKI Jakarta 12790',
+            'sekaiichi@sds.co.id',
+            '082123162600 (WhatsApp)',
+          ],
+        },
+        {
+          title: processor.name,
+          body: 'Pengembang dan pemroses data — hanya untuk pertanyaan teknis',
+          items: [processor.address, processor.email],
+        },
+      ],
+    },
+  ],
+};
+
+export const policies: Policy[] = [indonesia, malaysia, sds];
 
 export function getPolicy(slug: string): Policy | undefined {
   return policies.find((p) => p.slug === slug);

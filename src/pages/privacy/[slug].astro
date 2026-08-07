@@ -2,20 +2,25 @@
 import type { GetStaticPaths } from 'astro';
 import Base from '../../layouts/Base.astro';
 import LampMark from '../../components/brand/LampMark.astro';
-import { policies } from '../../data/privacy';
+import { policies, labels } from '../../data/privacy';
 
 export const getStaticPaths = (() => {
   return policies.map((policy) => ({
     params: { slug: policy.slug },
     props: {
       policy,
-      // Each policy links across to its sibling country.
-      other: policies.find((p) => p.slug !== policy.slug)!,
+      // Only per-market siblings cross-link; unrelated apps get no band.
+      other: policy.related
+        ? (policies.find((p) => p.slug === policy.related) ?? null)
+        : null,
     },
   }));
 }) satisfies GetStaticPaths;
 
 const { policy, other } = Astro.props;
+const t = labels[policy.lang];
+const numbered = policy.autoNumber !== false;
+const ordinal = (i: number) => String(i + 1).padStart(2, '0');
 ---
 
 <Base
@@ -41,7 +46,7 @@ const { policy, other } = Astro.props;
       <div class="shell">
         <p class="eyebrow flex items-center gap-2.5 text-brand-600" data-reveal>
           <span class="inline-block h-1.5 w-1.5 rounded-full bg-current"></span>
-          Privacy policy · {policy.country}
+          {t.eyebrow} · {policy.country}
         </p>
 
         <h1 class="display-1 mt-6 max-w-4xl text-ink" data-reveal data-reveal-delay="0.06">
@@ -60,12 +65,12 @@ const { policy, other } = Astro.props;
           <li
             class="rounded-full border border-ink/12 bg-white/60 px-4 py-2 text-xs font-semibold text-ink-2 backdrop-blur"
           >
-            Effective {policy.effective}
+            {t.effective} {policy.effective}
           </li>
           <li
             class="rounded-full border border-ink/12 bg-white/60 px-4 py-2 text-xs font-semibold text-ink-2 backdrop-blur"
           >
-            Last updated {policy.updated}
+            {t.updated} {policy.updated}
           </li>
           <li
             class="rounded-full border border-ink/12 bg-white/60 px-4 py-2 font-mono text-xs font-semibold text-ink-2 backdrop-blur"
@@ -96,9 +101,9 @@ const { policy, other } = Astro.props;
 
     <div class="shell grid gap-14 pb-24 lg:grid-cols-[16rem_1fr] lg:gap-16 lg:pb-32">
       {/* Sticky contents rail */}
-      <nav class="lg:sticky lg:top-28 lg:self-start" aria-label="Sections">
+      <nav class="lg:sticky lg:top-28 lg:self-start" aria-label={t.contents}>
         <h2 class="text-xs font-bold uppercase tracking-[0.16em] text-ink-4">
-          Contents
+          {t.contents}
         </h2>
         <ol class="mt-5 space-y-2.5 border-l border-ink/10 pl-4">
           {
@@ -108,9 +113,9 @@ const { policy, other } = Astro.props;
                   href={`#${section.id}`}
                   class="block text-sm leading-snug text-ink-3 transition-colors duration-300 hover:text-brand-600"
                 >
-                  <span class="mr-1.5 font-mono text-xs text-ink-4">
-                    {String(i + 1).padStart(2, '0')}
-                  </span>
+                  {numbered && (
+                    <span class="mr-1.5 font-mono text-xs text-ink-4">{ordinal(i)}</span>
+                  )}
                   {section.heading}
                 </a>
               </li>
@@ -124,9 +129,11 @@ const { policy, other } = Astro.props;
           policy.sections.map((section, i) => (
             <section id={section.id} class="scroll-mt-28 border-t border-ink/10 pt-10 first:border-0 first:pt-0 [&+section]:mt-14">
               <h2 class="display-3 text-ink">
-                <span class="mr-3 font-mono text-base font-semibold text-ink-4 align-middle">
-                  {String(i + 1).padStart(2, '0')}
-                </span>
+                {numbered && (
+                  <span class="mr-3 align-middle font-mono text-base font-semibold text-ink-4">
+                    {ordinal(i)}
+                  </span>
+                )}
                 {section.heading}
               </h2>
 
@@ -186,40 +193,42 @@ const { policy, other } = Astro.props;
       </div>
     </div>
 
-    {/* Cross-link to the sibling country's policy */}
-    <section class="relative overflow-hidden bg-ink text-paper">
-      <LampMark
-        class="pointer-events-none absolute -bottom-20 -right-12 h-[22rem] w-auto text-white/[0.035]"
-      />
-      <div class="shell relative py-16 lg:py-20">
-        <p class="eyebrow text-brand-300">Other markets</p>
-        <h2 class="display-3 mt-4 max-w-2xl text-paper">
-          Looking for the {other.country} app?
-        </h2>
-        <p class="mt-5 max-w-xl leading-relaxed text-paper/60">
-          {other.app} is a separate application operated by {other.controller.name},
-          with its own privacy policy.
-        </p>
-        <a
-          href={`/privacy/${other.slug}`}
-          class="group mt-8 inline-flex items-center gap-2.5 rounded-full bg-paper px-6 py-3.5 text-sm font-semibold text-ink transition-colors duration-300 hover:bg-white"
-        >
-          Read the {other.app} policy
-          <svg
-            class="h-3.5 w-3.5 transition-transform duration-400 ease-[var(--ease-out-expo)] group-hover:translate-x-1"
-            viewBox="0 0 16 16"
-            fill="none"
-            aria-hidden="true"
-          >
-            <path
-              d="M2 8h11m0 0L9 4m4 4-4 4"
-              stroke="currentColor"
-              stroke-width="1.8"
-              stroke-linecap="round"
-              stroke-linejoin="round"></path>
-          </svg>
-        </a>
-      </div>
-    </section>
+    {/* Cross-link, only for apps that ship a per-market sibling */}
+    {
+      other && (
+        <section class="relative overflow-hidden bg-ink text-paper">
+          <LampMark class="pointer-events-none absolute -bottom-20 -right-12 h-[22rem] w-auto text-white/[0.035]" />
+          <div class="shell relative py-16 lg:py-20">
+            <p class="eyebrow text-brand-300">{t.relatedEyebrow}</p>
+            <h2 class="display-3 mt-4 max-w-2xl text-paper">
+              {t.relatedHeading(other.country)}
+            </h2>
+            <p class="mt-5 max-w-xl leading-relaxed text-paper/60">
+              {other.app} is a separate application operated by {other.controller.name}, with its own privacy policy.
+            </p>
+            <a
+              href={`/privacy/${other.slug}`}
+              class="group mt-8 inline-flex items-center gap-2.5 rounded-full bg-paper px-6 py-3.5 text-sm font-semibold text-ink transition-colors duration-300 hover:bg-white"
+            >
+              {t.relatedCta(other.app)}
+              <svg
+                class="h-3.5 w-3.5 transition-transform duration-400 ease-[var(--ease-out-expo)] group-hover:translate-x-1"
+                viewBox="0 0 16 16"
+                fill="none"
+                aria-hidden="true"
+              >
+                <path
+                  d="M2 8h11m0 0L9 4m4 4-4 4"
+                  stroke="currentColor"
+                  stroke-width="1.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </a>
+          </div>
+        </section>
+      )
+    }
   </article>
 </Base>
