@@ -212,6 +212,28 @@ export const work: WorkItem[] = [
     image: wakafyukShot,
   },
   {
+    slug: 'narrativephone',
+    title: 'NarrativePhone — Secure Care Calling',
+    shortTitle: 'NarrativePhone',
+    clients: ['xCareField Co., Ltd.'],
+    sector: 'Corporate',
+    year: '2023',
+    platforms: ['iOS App', 'Android App'],
+    summary:
+      'Our first engagement outside Indonesia — a calling app for xCareField in Japan that connects patients, their families, and the medical and care professionals around them. We built the base of both native clients, in Swift and Kotlin, against xCareField’s own API: Zoom-backed calls placed and answered through each platform’s native call interface.',
+    scope: [
+      'Native iOS client in Swift',
+      'Native Android client in Kotlin',
+      'Zoom-backed voice & video calling',
+      'Native incoming-call handling via CallKit',
+      'Multi-role account switching',
+      'Contact directory, categories & import',
+      'NarrativeBook contact import',
+      'Call history & favourites',
+    ],
+    accent: 'lilac',
+  },
+  {
     slug: 'pbas-website-career',
     title: 'PBAS Website & Career Information System',
     shortTitle: 'PBAS',
@@ -516,28 +538,6 @@ export const work: WorkItem[] = [
       'Android mobile app',
     ],
     accent: 'mint',
-  },
-  {
-    slug: 'narrativephone',
-    title: 'NarrativePhone — Secure Care Calling',
-    shortTitle: 'NarrativePhone',
-    clients: ['xCareField Co., Ltd.'],
-    sector: 'Corporate',
-    year: '2023',
-    platforms: ['iOS App', 'Android App'],
-    summary:
-      'Our first engagement outside Indonesia — a calling app for xCareField in Japan that connects patients, their families, and the medical and care professionals around them. We built the base of both native clients, in Swift and Kotlin, against xCareField’s own API: Zoom-backed calls placed and answered through each platform’s native call interface.',
-    scope: [
-      'Native iOS client in Swift',
-      'Native Android client in Kotlin',
-      'Zoom-backed voice & video calling',
-      'Native incoming-call handling via CallKit',
-      'Multi-role account switching',
-      'Contact directory, categories & import',
-      'NarrativeBook contact import',
-      'Call history & favourites',
-    ],
-    accent: 'lilac',
   },
 ];
 
