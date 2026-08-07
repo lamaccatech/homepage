@@ -81,6 +81,7 @@ export const clients: string[] = [
   'PT Advansia Indotani',
   'Advansia Sdn Bhd',
   'PT Sekaiichi Dwiputra Service',
+  'xCareField Co., Ltd.',
   'PT Prima Nusantara Services',
   'Kemenpora RI',
   'Bhakti Husada',

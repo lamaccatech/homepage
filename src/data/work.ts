@@ -517,6 +517,29 @@ export const work: WorkItem[] = [
     ],
     accent: 'mint',
   },
+  {
+    slug: 'narrativephone',
+    title: 'NarrativePhone — Secure Care Calling',
+    shortTitle: 'NarrativePhone',
+    clients: ['xCareField Co., Ltd.'],
+    sector: 'Corporate',
+    year: '2023',
+    platforms: ['iOS App', 'Android App', 'API'],
+    summary:
+      'Our first engagement outside Indonesia — a calling app for xCareField in Japan that connects patients, their families, and the medical and care professionals around them. We built the base of the product: native iOS and Android clients and the Rails API behind them, with Zoom-backed calls placed and answered through each platform’s own native call interface.',
+    scope: [
+      'Native iOS client in Swift',
+      'Native Android client in Kotlin',
+      'Ruby on Rails API',
+      'Zoom-backed voice & video calling',
+      'Native incoming-call handling via CallKit',
+      'Multi-role account switching',
+      'Contact directory, categories & import',
+      'Call history & favourites',
+      'NarrativeBook patient-record integration',
+    ],
+    accent: 'lilac',
+  },
 ];
 
 export const sectors: Sector[] = [
