@@ -41,6 +41,14 @@ function initSmoothScroll() {
 /* -------------------------------------------------------------------------
    Scroll reveals
    Every [data-reveal] rises into place once. Groups stagger their children.
+
+   Trigger on 'some' — i.e. threshold 0 — and let the negative bottom margin
+   decide when it fires. A fractional `amount` is a ratio of the *target's own*
+   height, so anything taller than viewport/amount can never reach it: the work
+   grid stacks to one column on phones, grows past 14,000px, tops out at a 0.05
+   ratio against a 0.1 threshold, and its 24 cards sit at opacity 0 forever.
+   Sizing is layout- and image-dependent, so measuring to clamp the fraction
+   would only move the cliff; not depending on height at all removes it.
    ------------------------------------------------------------------------- */
 function initReveals() {
   const els = document.querySelectorAll<HTMLElement>('[data-reveal]');
@@ -63,7 +71,7 @@ function initReveals() {
           { duration: 0.8, delay, ease: EASE },
         );
       },
-      { amount: 0.15, margin: '0px 0px -8% 0px' },
+      { amount: 'some', margin: '0px 0px -8% 0px' },
     );
   });
 
@@ -87,7 +95,7 @@ function initReveals() {
           { duration: 0.7, delay: stagger(0.08), ease: EASE },
         );
       },
-      { amount: 0.1, margin: '0px 0px -6% 0px' },
+      { amount: 'some', margin: '0px 0px -6% 0px' },
     );
   });
 }
