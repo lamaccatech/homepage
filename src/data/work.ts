@@ -1,5 +1,5 @@
 import simpanShot from '../assets/projects/simpan.png';
-import advLifeShot from '../assets/projects/adv-life.png';
+import advLiveShot from '../assets/projects/adv-live.png';
 import situationRoomShot from '../assets/projects/situation-room.png';
 import banhubShot from '../assets/projects/banhub-kaltara.png';
 import pantauRelawanShot from '../assets/projects/pantau-relawan.png';
@@ -52,8 +52,8 @@ export const work: WorkItem[] = [
   },
   {
     slug: 'adv-life',
-    title: 'ADV-Life — Agriculture Field Operations',
-    shortTitle: 'ADV-Life',
+    title: 'ADV Live — Agriculture Field Operations',
+    shortTitle: 'ADV Live',
     clients: ['PT Advansia Indotani', 'Advansia Sdn Bhd'],
     sector: 'Corporate',
     year: '2023',
@@ -69,7 +69,7 @@ export const work: WorkItem[] = [
       'Dashboard & KPI monitoring',
     ],
     accent: 'mint',
-    image: advLifeShot,
+    image: advLiveShot,
   },
   {
     slug: 'cleaning-service-management',
@@ -138,8 +138,8 @@ export const work: WorkItem[] = [
   },
   {
     slug: 'ewatch',
-    title: 'eWatch — Campaign Field Monitoring',
-    shortTitle: 'eWatch',
+    title: 'e-Watch — Campaign Field Monitoring',
+    shortTitle: 'e-Watch',
     clients: ['LSI Denny JA', 'Puspoll'],
     sector: 'Organisation',
     year: '2024',
