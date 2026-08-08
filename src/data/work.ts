@@ -51,7 +51,7 @@ export const work: WorkItem[] = [
     image: simpanShot,
   },
   {
-    slug: 'adv-life',
+    slug: 'adv-live',
     title: 'ADV Live — Agriculture Field Operations',
     shortTitle: 'ADV Live',
     clients: ['PT Advansia Indotani', 'Advansia Sdn Bhd'],
@@ -137,7 +137,7 @@ export const work: WorkItem[] = [
     accent: 'amber',
   },
   {
-    slug: 'ewatch',
+    slug: 'e-watch',
     title: 'e-Watch — Campaign Field Monitoring',
     shortTitle: 'e-Watch',
     clients: ['LSI Denny JA', 'Puspoll'],
