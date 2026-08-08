@@ -5,18 +5,26 @@ import PageHero from '../components/PageHero.astro';
 import CtaBand from '../components/CtaBand.astro';
 import { products } from '../data/products';
 import { accent } from '../lib/accents';
+
+// Both of these used to be typed out by hand and had already drifted a product
+// behind the data. Derive them so adding to products.ts is the only step.
+const names = products.map((p) => p.name);
+const productList =
+  names.length > 1
+    ? `${names.slice(0, -1).join(', ')}, and ${names.at(-1)}`
+    : names.join('');
 ---
 
 <Base
   title="Products"
-  description="In-house platforms built by Lamacca: e-Partai, Pantau Relawan, Brainplus, Crowdfunding, Cleaning Service Management, and SIMPEL."
+  description={`In-house platforms built by Lamacca: ${productList}.`}
   transparentHeader
 >
   <PageHero
     eyebrow="Our products"
     title="Platforms already<br />built and running."
     lead="Each of these started as a client problem and grew into a product. That means you get a proven foundation, tailored to how your organisation actually works — instead of a blank page and a long timeline."
-    meta={['6 platforms', 'Web & mobile', 'Ready to tailor']}
+    meta={[`${products.length} platforms`, 'Web & mobile', 'Ready to tailor']}
   />
 
   <section class="shell pb-12 pt-8 lg:pb-20">
