@@ -171,7 +171,7 @@ export const work: WorkItem[] = [
       'LSI Denny JA',
     ],
     sector: 'Organisation',
-    year: '2023',
+    year: '2018',
     platforms: ['Web App', 'Mobile App'],
     summary:
       'Our campaign management platform deployed for legislative and regional candidates across six party and survey organisations — organising, monitoring, and maximising volunteer networks in real time, from central command to grassroots field operatives.',
