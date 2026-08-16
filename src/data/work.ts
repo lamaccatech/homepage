@@ -56,7 +56,7 @@ export const work: WorkItem[] = [
     shortTitle: 'ADV Live',
     clients: ['PT Advansia Indotani', 'Advansia Sdn Bhd'],
     sector: 'Corporate',
-    year: '2025',
+    year: '2021 — 2026',
     platforms: ['Web App', 'Mobile App'],
     summary:
       'A web and Android platform serving both Advansia entities — PT Advansia Indotani in Indonesia and Advansia Sdn Bhd in Malaysia — coordinating field operations, sales activity, and distribution networks between employees, distributors, and resellers, with monthly tracking of Customer Executive results across both markets.',
