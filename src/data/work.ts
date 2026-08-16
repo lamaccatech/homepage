@@ -56,7 +56,7 @@ export const work: WorkItem[] = [
     shortTitle: 'ADV Live',
     clients: ['PT Advansia Indotani', 'Advansia Sdn Bhd'],
     sector: 'Corporate',
-    year: '2025 — 2026',
+    year: '2025',
     platforms: ['Web App', 'Mobile App'],
     summary:
       'A web and Android platform serving both Advansia entities — PT Advansia Indotani in Indonesia and Advansia Sdn Bhd in Malaysia — coordinating field operations, sales activity, and distribution networks between employees, distributors, and resellers, with monthly tracking of Customer Executive results across both markets.',
@@ -77,7 +77,7 @@ export const work: WorkItem[] = [
     shortTitle: 'Cleaning Service',
     clients: ['PT Sekaiichi Dwiputra Service'],
     sector: 'Corporate',
-    year: '2024 — 2026',
+    year: '2024',
     platforms: ['Web App', 'Mobile App'],
     summary:
       'A digital platform managing and monitoring cleaning operations for PT Sekaiichi Dwiputra Service — replacing paper checklists with scheduling, QR-based area check-in, and quality control backed by real-time data from every site.',
@@ -99,7 +99,7 @@ export const work: WorkItem[] = [
     shortTitle: 'e-Hibah',
     clients: ['Mabes Polri'],
     sector: 'Public Safety',
-    year: '2024 — 2026',
+    year: '2024',
     platforms: ['Web App'],
     summary:
       'A web platform managing the entire grant process in an integrated way — built for speed, security, and scale, while raising transparency and accountability across grant management at Mabes Polri.',
@@ -142,7 +142,7 @@ export const work: WorkItem[] = [
     shortTitle: 'e-Watch',
     clients: ['LSI Denny JA', 'Puspoll'],
     sector: 'Organisation',
-    year: '2022 — 2025',
+    year: '2022',
     platforms: ['Web App', 'Mobile App'],
     summary:
       'Our active engagement with LSI Denny JA — a field monitoring system tracking political campaign volunteers in real time, from door-to-door canvassing to campaign material distribution, so every movement on the ground is structured, documented, and verifiable.',
@@ -171,7 +171,7 @@ export const work: WorkItem[] = [
       'LSI Denny JA',
     ],
     sector: 'Organisation',
-    year: '2023 — 2026',
+    year: '2023',
     platforms: ['Web App', 'Mobile App'],
     summary:
       'Our campaign management platform deployed for legislative and regional candidates across six party and survey organisations — organising, monitoring, and maximising volunteer networks in real time, from central command to grassroots field operatives.',
@@ -194,7 +194,7 @@ export const work: WorkItem[] = [
     shortTitle: 'Wakafyuk',
     clients: ['Wakafyuk.id', 'Bantusesama.id'],
     sector: 'Organisation',
-    year: '2020 — 2024',
+    year: '2020',
     platforms: ['Web App', 'Mobile App'],
     summary:
       'Digital fundraising platforms for two Indonesian foundations, letting them organise, manage, and promote donation campaigns with transparent progress tracking and digital receipts for every donor.',
@@ -217,7 +217,7 @@ export const work: WorkItem[] = [
     shortTitle: 'NarrativePhone',
     clients: ['xCareField Co., Ltd.'],
     sector: 'Corporate',
-    year: '2023 — 2024',
+    year: '2023',
     platforms: ['iOS App', 'Android App'],
     summary:
       'Our first engagement outside Indonesia — a calling app for xCareField in Japan that connects patients, their families, and the medical and care professionals around them. We built the base of both native clients, in Swift and Kotlin, against xCareField’s own API: Zoom-backed calls placed and answered through each platform’s native call interface.',
@@ -239,7 +239,7 @@ export const work: WorkItem[] = [
     shortTitle: 'PBAS',
     clients: ['Patra Badak Arun Solusi'],
     sector: 'Corporate',
-    year: '2020 — 2022',
+    year: '2020',
     platforms: ['Web App'],
     summary:
       'A modern, user-friendly corporate website for Patra Badak Arun Solusi, extended with a careers module that runs the company’s new-employee recruitment process end to end.',
@@ -279,7 +279,7 @@ export const work: WorkItem[] = [
     shortTitle: 'ISBE Dashboard',
     clients: ['BPKH RI'],
     sector: 'Government',
-    year: '2021 — 2022',
+    year: '2021',
     platforms: ['Web App'],
     summary:
       'Built for Badan Pengelola Keuangan Haji to oversee and evaluate investment activity in securities and gold assets — structured data management and real-time oversight supporting strategic decisions.',
@@ -299,7 +299,7 @@ export const work: WorkItem[] = [
     shortTitle: 'SIMPEL',
     clients: ['Dishub Samarinda', 'Dishub Paser'],
     sector: 'Government',
-    year: '2025 — 2026',
+    year: '2025',
     platforms: ['Web App', 'Mobile App'],
     summary:
       'Managing, monitoring, and optimising the inventory, condition, and maintenance of road infrastructure — traffic signs, markings, APILL signals, safety barriers, and supporting facilities.',
