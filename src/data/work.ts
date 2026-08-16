@@ -33,7 +33,7 @@ export const work: WorkItem[] = [
     shortTitle: 'SIMPAN',
     clients: ['Partai Amanat Nasional'],
     sector: 'Organisation',
-    year: '2021 — 2026',
+    year: '2021',
     platforms: ['Web App', 'Mobile App'],
     summary:
       'Our e-Partai platform deployed as SIMPAN for Partai Amanat Nasional, one of Indonesia’s major political parties — a centralised, secure system digitalising membership, internal administration, and electoral readiness from national headquarters down to branch level.',
@@ -56,7 +56,7 @@ export const work: WorkItem[] = [
     shortTitle: 'ADV Live',
     clients: ['PT Advansia Indotani', 'Advansia Sdn Bhd'],
     sector: 'Corporate',
-    year: '2021 — 2026',
+    year: '2021',
     platforms: ['Web App', 'Mobile App'],
     summary:
       'A web and Android platform serving both Advansia entities — PT Advansia Indotani in Indonesia and Advansia Sdn Bhd in Malaysia — coordinating field operations, sales activity, and distribution networks between employees, distributors, and resellers, with monthly tracking of Customer Executive results across both markets.',
