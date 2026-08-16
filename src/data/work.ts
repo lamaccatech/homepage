@@ -279,7 +279,7 @@ export const work: WorkItem[] = [
     shortTitle: 'ISBE Dashboard',
     clients: ['BPKH RI'],
     sector: 'Government',
-    year: '2024',
+    year: '2021 — 2022',
     platforms: ['Web App'],
     summary:
       'Built for Badan Pengelola Keuangan Haji to oversee and evaluate investment activity in securities and gold assets — structured data management and real-time oversight supporting strategic decisions.',
