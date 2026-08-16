@@ -36,7 +36,7 @@ export const work: WorkItem[] = [
     year: '2021 — 2026',
     platforms: ['Web App', 'Mobile App'],
     summary:
-      'Our e-Partai platform deployed as SIMPAN for Partai Amanat Nasional, one of Indonesia’s major political parties — a centralised, secure system digitalising membership, internal administration, and electoral readiness from national headquarters down to branch level. First delivered in 2021 (Firebase) and rewritten in 2025 as a cloud-agnostic upgrade.',
+      'Our e-Partai platform deployed as SIMPAN for Partai Amanat Nasional, one of Indonesia’s major political parties — a centralised, secure system digitalising membership, internal administration, and electoral readiness from national headquarters down to branch level.',
     scope: [
       'Member registration & management',
       'e-KTA digital membership card',
