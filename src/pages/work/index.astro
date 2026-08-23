@@ -136,9 +136,13 @@ const filters = ['All', ...sectors];
 
               <div class="mt-7 flex items-center justify-between border-t border-ink/8 pt-5">
                 <span class="flex gap-1.5">
-                  {item.platforms.map((p) => (
+                  {[
+                    ...new Set(
+                      item.platforms.map((p) => (p === 'Web App' ? 'Web' : 'Mobile')),
+                    ),
+                  ].map((label) => (
                     <span class="rounded-full bg-paper-2 px-2.5 py-1 text-[0.6rem] font-semibold text-ink-3">
-                      {p === 'Web App' ? 'Web' : 'Mobile'}
+                      {label}
                     </span>
                   ))}
                 </span>

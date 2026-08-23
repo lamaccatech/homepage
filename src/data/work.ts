@@ -321,7 +321,7 @@ export const work: WorkItem[] = [
     clients: ['Biro Umum & Perlengkapan Setda Kalimantan Utara'],
     sector: 'Government',
     year: '2022',
-    platforms: ['Web App', 'Mobile App'],
+    platforms: ['Web App'],
     summary:
       'Supporting the General Affairs Bureau of the North Kalimantan provincial secretariat in managing government-owned inventory and fixed assets, using QR codes for accurate identification, real-time tracking, and efficient verification across departments.',
     scope: [
@@ -331,7 +331,6 @@ export const work: WorkItem[] = [
       'Condition & maintenance records',
       'Asset mutation & handover',
       'Reporting & audit readiness',
-      'Mobile app scanner',
     ],
     accent: 'lilac',
   },
@@ -382,7 +381,7 @@ export const work: WorkItem[] = [
     clients: ['Partai Amanat Nasional'],
     sector: 'Organisation',
     year: '2024',
-    platforms: ['Web App', 'Mobile App'],
+    platforms: ['Web App'],
     summary:
       'Streamlining participant management for the PAN Congress — online registration, identity verification, and real-time attendance tracking for an organised, accountable, data-driven event.',
     scope: [
@@ -392,7 +391,6 @@ export const work: WorkItem[] = [
       'Check-in & attendance tracking',
       'Dashboard & reporting',
       'User management & access control',
-      'Mobile app scanner',
     ],
     accent: 'amber',
   },
