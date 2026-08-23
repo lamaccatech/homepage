@@ -320,7 +320,7 @@ export const work: WorkItem[] = [
     shortTitle: 'SIMAS',
     clients: ['Biro Umum & Perlengkapan Setda Kalimantan Utara'],
     sector: 'Government',
-    year: '2024',
+    year: '2022',
     platforms: ['Web App', 'Mobile App'],
     summary:
       'Supporting the General Affairs Bureau of the North Kalimantan provincial secretariat in managing government-owned inventory and fixed assets, using QR codes for accurate identification, real-time tracking, and efficient verification across departments.',
@@ -341,7 +341,7 @@ export const work: WorkItem[] = [
     shortTitle: 'Standard Price',
     clients: ['BKAD Kalimantan Utara'],
     sector: 'Government',
-    year: '2023',
+    year: '2022',
     platforms: ['Web App'],
     summary:
       'Managing the standard pricing references used across government budgeting processes such as RKA and APBD, keeping a single authoritative source for every cost standard.',
@@ -361,7 +361,7 @@ export const work: WorkItem[] = [
     shortTitle: 'Asset Reconciliation',
     clients: ['BKAD Kalimantan Utara'],
     sector: 'Government',
-    year: '2023',
+    year: '2022',
     platforms: ['Web App'],
     summary:
       'A specialised platform helping BKAD North Kalimantan reconcile physical fixed asset data against records held in the Asset Management Information System — systematically, and with an audit trail.',
@@ -402,7 +402,7 @@ export const work: WorkItem[] = [
     shortTitle: 'e-KAHMI',
     clients: ['MN KAHMI'],
     sector: 'Organisation',
-    year: '2023',
+    year: '2024',
     platforms: ['Web App', 'Mobile App'],
     summary:
       'A web and Android application for the Majelis Nasional Korps Alumni Himpunan Mahasiswa Islam, handling membership management, activity coordination, and communication across the organisation.',
@@ -421,7 +421,7 @@ export const work: WorkItem[] = [
     shortTitle: 'e-Perdatin',
     clients: ['Perdatin Jaya'],
     sector: 'Organisation',
-    year: '2024',
+    year: '2023',
     platforms: ['Web App'],
     summary:
       'A responsive web application for the Indonesian Society of Anesthesiology and Intensive Therapy Specialists, streamlining membership data, correspondence, financial records, and administrative workflows.',
@@ -525,7 +525,7 @@ export const work: WorkItem[] = [
     shortTitle: 'Geo Attendance',
     clients: ['Dinas Perpustakaan dan Kearsipan Sulawesi Selatan'],
     sector: 'Government',
-    year: '2022',
+    year: '2021',
     platforms: ['Web App', 'Mobile App'],
     summary:
       'GPS-validated check-in and check-out, ensuring attendance can only be recorded from predefined locations — improving discipline and accountability for remote and field-based teams.',
