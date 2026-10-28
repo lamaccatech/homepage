@@ -28,7 +28,7 @@ const shared = {
 const terms: Policy = {
   ...shared,
   effective: '28 Oktober 2026',
-  updated: '28 Oktober 2026',
+  updated: '29 Oktober 2026',
   summary:
     'Syarat penggunaan aplikasi simPAN: keanggotaan, akun, perekrutan relawan, perilaku pengguna, serta batas tanggung jawab layanan.',
 
@@ -57,7 +57,7 @@ const terms: Policy = {
       heading: 'Penerimaan ketentuan',
       body: [
         'Dengan mendaftar, masuk, atau menggunakan <strong>simPAN</strong>, aplikasi keanggotaan dan kaderisasi Partai Amanat Nasional (“Partai”), Anda menyatakan telah membaca dan menyetujui Ketentuan Layanan ini serta <a href="/privacy/simpan">Kebijakan Privasi</a> yang berlaku.',
-        'Jika Anda tidak setuju, mohon tidak menggunakan Aplikasi. Aplikasi dikembangkan dan dioperasikan oleh PT Lamacca Kreatif Solusi atas nama Partai, yang bertindak sebagai pengendali data.',
+        'Jika Anda tidak setuju, mohon tidak menggunakan Aplikasi. Aplikasi dikembangkan oleh PT Lamacca Kreatif Solusi dan dioperasikan oleh pengurus Dewan Pimpinan Pusat Partai. Partai bertindak sebagai pengendali data.',
       ],
     },
     {
@@ -82,6 +82,7 @@ const terms: Policy = {
       id: 'keanggotaan',
       heading: 'Keanggotaan dan Kartu Tanda Anggota',
       list: [
+        'Dengan mendaftar di Aplikasi, Anda secara sukarela dan atas kehendak sendiri mengajukan permohonan untuk menjadi anggota Partai. Pendaftaran baru berlaku sebagai keanggotaan setelah diverifikasi oleh pengurus yang berwenang.',
         'Pendaftaran Anda ditinjau oleh pengurus partai yang berwenang sesuai wilayah Anda. Status keanggotaan dapat berupa menunggu, terverifikasi, atau ditolak, dan alasan penolakan ditampilkan di Aplikasi.',
         'Persetujuan, penolakan, dan permintaan perbaikan data berada pada kewenangan pengurus sesuai ketentuan organisasi Partai. Aplikasi tidak menjamin pendaftaran akan disetujui.',
         'Kartu Tanda Anggota digital dan kode QR-nya hanya sah selama Anda tercatat sebagai anggota, dan hanya untuk Anda. Dilarang memalsukan, memperjualbelikan, atau meminjamkannya kepada orang lain.',
@@ -119,7 +120,7 @@ const terms: Policy = {
       heading: 'Konten dan kekayaan intelektual',
       body: [
         'Berita, banner, dan profil partai di Aplikasi bersumber dari kanal resmi Partai (pan.or.id) dan tetap menjadi milik Partai. Nama, lambang, dan tanda Partai adalah milik Partai.',
-        'Aplikasi, kode sumber, dan desainnya adalah milik PT Lamacca Kreatif Solusi atau pemberi lisensinya, dan digunakan atas nama Partai. Anda mendapat hak terbatas, tidak eksklusif, dan tidak dapat dialihkan untuk menggunakan Aplikasi selama menjadi pengguna.',
+        'Aplikasi, kode sumber, dan desainnya adalah milik PT Lamacca Kreatif Solusi atau pemberi lisensinya. Anda mendapat hak terbatas, tidak eksklusif, dan tidak dapat dialihkan untuk menggunakan Aplikasi selama menjadi pengguna.',
         'Foto dan data yang Anda unggah tetap milik Anda. Anda mengizinkan Partai dan pemrosesnya menggunakannya sebatas yang diperlukan untuk menjalankan keanggotaan, sebagaimana dijelaskan dalam Kebijakan Privasi.',
       ],
     },
@@ -201,7 +202,7 @@ const terms: Policy = {
 const accountDeletion: Policy = {
   ...shared,
   effective: '28 Oktober 2026',
-  updated: '28 Oktober 2026',
+  updated: '29 Oktober 2026',
   summary:
     'Cara mengajukan penghapusan akun simPAN, data apa yang dihapus, apa yang tetap ada tanpa identitas Anda, serta bagaimana permintaan Anda ditinjau.',
 
@@ -230,7 +231,7 @@ const accountDeletion: Policy = {
       heading: 'Tentang halaman ini',
       body: [
         'Halaman ini menjelaskan bagaimana pengguna <strong>simPAN</strong> mengajukan penghapusan akun, data apa yang terdampak, dan apa yang tetap ada tanpa identitas Anda. Halaman ini dapat dibuka tanpa masuk ke Aplikasi.',
-        'Partai Amanat Nasional adalah pengendali data, dan PT Lamacca Kreatif Solusi mengoperasikan Aplikasi sebagai pemroses data, sebagaimana dijelaskan dalam <a href="/privacy/simpan">Kebijakan Privasi</a>.',
+        'Partai Amanat Nasional adalah pengendali data, dan PT Lamacca Kreatif Solusi adalah pemroses data, sebagaimana dijelaskan dalam <a href="/privacy/simpan">Kebijakan Privasi</a>.',
       ],
     },
     {

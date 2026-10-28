@@ -892,7 +892,7 @@ const simpan: Policy = {
     phone: '+62 21 2696 6011',
   },
   effective: '7 Agustus 2026',
-  updated: '7 Agustus 2026',
+  updated: '29 Oktober 2026',
   summary:
     'Bagaimana Partai Amanat Nasional mengumpulkan, menggunakan, membagikan, dan melindungi data pribadi Anda di aplikasi simPAN.',
 
@@ -942,8 +942,9 @@ const simpan: Policy = {
       heading: 'Siapa yang bertanggung jawab atas data Anda',
       body: [
         '<strong>Partai Amanat Nasional</strong> adalah pengendali data pribadi. Partai menentukan tujuan dan cara pemrosesan data di dalam Aplikasi, dan merupakan pihak yang Anda hubungi terkait data Anda.',
-        '<strong>PT Lamacca Kreatif Solusi</strong> adalah pengembang sekaligus pemroses data pribadi. Perusahaan ini membangun, mengoperasikan, dan memelihara Aplikasi berdasarkan perjanjian dengan partai, serta memproses data pribadi hanya sesuai instruksi tertulis partai. Data tidak digunakan untuk kepentingan perusahaan sendiri.',
-        'PT Lamacca Kreatif Solusi juga mendistribusikan Aplikasi melalui akun pengembang Google Play dan App Store miliknya atas nama partai. Hal itu tidak menjadikannya pengendali atas data di dalam Aplikasi.',
+        '<strong>PT Lamacca Kreatif Solusi</strong> adalah pengembang sekaligus pemroses data pribadi. Perusahaan ini membangun dan memelihara Aplikasi berdasarkan perjanjian dengan partai, serta memproses data pribadi hanya sesuai instruksi tertulis partai. Data tidak digunakan untuk kepentingan perusahaan sendiri.',
+        'Aplikasi dioperasikan oleh pengurus Dewan Pimpinan Pusat Partai Amanat Nasional.',
+        'PT Lamacca Kreatif Solusi juga mendistribusikan Aplikasi melalui akun pengembang Google Play dan App Store miliknya. Hal itu tidak menjadikannya pengendali atas data di dalam Aplikasi.',
       ],
     },
 
