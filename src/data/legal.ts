@@ -183,9 +183,9 @@ const terms: Policy = {
         {
           title: 'Partai Amanat Nasional (DPP PAN)',
           items: [
-            'Jl. Senopati No. 113, Kebayoran Baru, Jakarta Selatan, DKI Jakarta 12190',
+            'Jl. Warung Buncit Raya No. 1A, RT/RW 001/005, Kelurahan Kalibata, Kecamatan Pancoran, Jakarta Selatan 12740',
             'dpp.partaiamanatnasional@gmail.com',
-            '+62 21 7884 8469',
+            '+62 21 2696 6011',
           ],
         },
         {
@@ -307,9 +307,9 @@ const accountDeletion: Policy = {
           title: 'Partai Amanat Nasional (DPP PAN)',
           body: 'Pengendali data',
           items: [
-            'Jl. Senopati No. 113, Kebayoran Baru, Jakarta Selatan, DKI Jakarta 12190',
+            'Jl. Warung Buncit Raya No. 1A, RT/RW 001/005, Kelurahan Kalibata, Kecamatan Pancoran, Jakarta Selatan 12740',
             'dpp.partaiamanatnasional@gmail.com',
-            '+62 21 7884 8469',
+            '+62 21 2696 6011',
           ],
         },
       ],

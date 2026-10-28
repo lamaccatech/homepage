@@ -876,8 +876,7 @@ const sds: Policy = {
  *
  * The surel on the contact block is confirmed monitored by the client, and is
  * the operative channel for rights and deletion requests. The postal address
- * comes from KPU party registration data rather than the party directly —
- * worth a glance if PAN ever moves.
+ * and phone are the ones on pan.or.id (the footer's Alamat Kantor), checked 2026-10-28 — worth a glance if PAN ever moves.
  */
 const simpan: Policy = {
   slug: 'simpan',
@@ -888,9 +887,9 @@ const simpan: Policy = {
   iosBundleId: 'or.id.pan.simpan',
   controller: {
     name: 'Partai Amanat Nasional (DPP PAN)',
-    address: 'Jl. Senopati No. 113, Kebayoran Baru, Jakarta Selatan, DKI Jakarta 12190, Indonesia',
+    address: 'Jl. Warung Buncit Raya No. 1A, RT/RW 001/005, Kelurahan Kalibata, Kecamatan Pancoran, Jakarta Selatan 12740, Indonesia',
     email: 'dpp.partaiamanatnasional@gmail.com',
-    phone: '+62 21 7884 8469',
+    phone: '+62 21 2696 6011',
   },
   effective: '7 Agustus 2026',
   updated: '7 Agustus 2026',
@@ -1258,9 +1257,9 @@ const simpan: Policy = {
           title: 'Partai Amanat Nasional (DPP PAN)',
           body: 'Pengendali data',
           items: [
-            'Jl. Senopati No. 113, Kebayoran Baru, Jakarta Selatan, DKI Jakarta 12190',
+            'Jl. Warung Buncit Raya No. 1A, RT/RW 001/005, Kelurahan Kalibata, Kecamatan Pancoran, Jakarta Selatan 12740',
             'dpp.partaiamanatnasional@gmail.com',
-            '+62 21 7884 8469',
+            '+62 21 2696 6011',
             'www.amanat-nasional.com',
           ],
         },
