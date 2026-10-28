@@ -1168,7 +1168,7 @@ const simpan: Policy = {
       ],
       list: [
         'Data keanggotaan disimpan selama Anda tercatat sebagai anggota partai.',
-        'Setelah keanggotaan berakhir, data disimpan selama jangka waktu yang diwajibkan peraturan perundang-undangan mengenai partai politik dan kepemiluan, kemudian dihapus atau dianonimkan.',
+        'Setelah keanggotaan berakhir, termasuk karena penghapusan akun, data pribadi Anda dihapus atau dianonimkan. Kami tidak menyimpannya lebih lama dari masa keanggotaan Anda, kecuali yang wajib disimpan oleh hukum dan dijelaskan pada bagian penghapusan akun.',
         'Foto KTP disimpan sebagai bukti verifikasi selama keanggotaan berlangsung.',
         'Gambar yang dikirim untuk pemindaian tidak kami simpan sebagai salinan tersendiri setelah datanya terbaca.',
         'Catatan teknis dan laporan galat disimpan dalam jangka pendek sesuai kebutuhan operasional.',
@@ -1209,23 +1209,22 @@ const simpan: Policy = {
       note: 'Ajukan permintaan melalui kontak pada bagian akhir halaman ini. Kami akan menanggapi paling lambat 3×24 jam sejak permintaan diterima, sesuai Pasal 21 UU PDP. Apabila Anda tidak puas dengan tanggapan kami, Anda dapat mengadu kepada lembaga pelindungan data pribadi di bawah Kementerian Komunikasi dan Digital.',
     },
 
-    // Describes the surel route only, because that is the only route that
-    // exists today — `permintaan_hapus_akun` is declared in the e-partai schema
-    // but nothing reads or writes it. When the in-app request lands, add it
-    // here as the primary path: Play wants an in-app route *and* this URL.
+    // The in-app request (`Akun > Hapus Akun`, reviewed by a pengurus) is the primary route and the surel stays as
+    // the way in for someone who cannot open the app. Play wants an in-app route *and* a public URL: that URL is
+    // /account-deletion/simpan (see `legal.ts`).
     {
       id: 'hapus-akun',
       heading: 'Menghapus akun dan data Anda',
       body: [
         'Anda berhak meminta penghapusan akun simPAN beserta data pribadi Anda kapan saja. Permintaan ini tidak dikenakan biaya.',
-        'Kirimkan permintaan melalui surel ke <strong>dpp.partaiamanatnasional@gmail.com</strong> dengan subjek “simPAN — permintaan penghapusan akun”, sertakan nama lengkap dan alamat surel yang terdaftar pada akun Anda.',
+        'Ajukan dari dalam Aplikasi melalui <strong>Akun › Hapus Akun</strong>. Permintaan Anda ditinjau oleh pengurus partai, dan statusnya dapat Anda lihat di Aplikasi. Jika Anda tidak dapat membuka Aplikasi, kirimkan permintaan melalui surel ke <strong>dpp.partaiamanatnasional@gmail.com</strong> dengan subjek “simPAN — permintaan penghapusan akun”, sertakan nama lengkap dan alamat surel yang terdaftar pada akun Anda. Tata cara lengkap ada di halaman <a href="/account-deletion/simpan">Penghapusan Akun simPAN</a>.',
       ],
       list: [
         'Kami memverifikasi identitas Anda terlebih dahulu agar akun tidak dihapus oleh pihak yang tidak berhak.',
-        'Akun dinonaktifkan dan aksesnya dicabut.',
+        'Setelah permintaan disetujui, akun dinonaktifkan dan aksesnya dicabut.',
         'Data pribadi yang tidak wajib kami simpan — termasuk foto diri, foto KTP, nomor telepon, alamat surel, alamat tempat tinggal, dan data pendidikan — dihapus atau dianonimkan.',
-        'Data yang wajib disimpan berdasarkan peraturan perundang-undangan mengenai partai politik dan kepemiluan disimpan sampai jangka waktunya berakhir, lalu dihapus.',
-        'Kami mengonfirmasikan hasilnya kepada Anda secara tertulis.',
+        'Data keanggotaan disimpan selama Anda tercatat sebagai anggota, dan dihapus atau dianonimkan bersama berakhirnya keanggotaan itu. Hanya catatan yang tidak lagi mengidentifikasi Anda yang dapat tetap ada.',
+        'Kami mengonfirmasikan hasilnya kepada Anda secara tertulis, paling lambat 3×24 jam sejak permintaan diterima.',
       ],
       note: 'Menghapus aplikasi dari perangkat tidak menghapus akun maupun data yang sudah tercatat. Gunakan tata cara di atas. Penghapusan akun juga berarti berakhirnya keanggotaan Anda beserta Kartu Tanda Anggota digitalnya.',
     },

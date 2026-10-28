@@ -1,0 +1,16 @@
+---
+import type { GetStaticPaths } from 'astro';
+import LegalDocument from '../../components/LegalDocument.astro';
+import { accountDeletions } from '../../data/legal';
+
+export const getStaticPaths = (() => {
+  return accountDeletions.map((policy) => ({
+    params: { slug: policy.slug },
+    props: { policy },
+  }));
+}) satisfies GetStaticPaths;
+
+const { policy } = Astro.props;
+---
+
+<LegalDocument policy={policy} documentTitle="Penghapusan Akun" eyebrow="Penghapusan akun" />
