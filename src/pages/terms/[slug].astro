@@ -1,0 +1,16 @@
+---
+import type { GetStaticPaths } from 'astro';
+import LegalDocument from '../../components/LegalDocument.astro';
+import { termsOfService } from '../../data/legal';
+
+export const getStaticPaths = (() => {
+  return termsOfService.map((policy) => ({
+    params: { slug: policy.slug },
+    props: { policy },
+  }));
+}) satisfies GetStaticPaths;
+
+const { policy } = Astro.props;
+---
+
+<LegalDocument policy={policy} documentTitle="Ketentuan Layanan" eyebrow="Ketentuan layanan" />
