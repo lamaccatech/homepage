@@ -892,7 +892,7 @@ const simpan: Policy = {
     phone: '+62 21 2696 6011',
   },
   effective: '7 Agustus 2026',
-  updated: '29 Oktober 2026',
+  updated: '1 November 2026',
   summary:
     'Bagaimana Partai Amanat Nasional mengumpulkan, menggunakan, membagikan, dan melindungi data pribadi Anda di aplikasi simPAN.',
 
@@ -967,22 +967,22 @@ const simpan: Policy = {
         },
         {
           title: 'Data kependudukan',
-          body: 'Dibutuhkan untuk memverifikasi keanggotaan dan mencegah pendaftaran ganda.',
+          body: 'Dibutuhkan untuk memverifikasi keanggotaan dan mencegah pendaftaran ganda. Data yang bertanda opsional boleh Anda kosongkan.',
           items: [
             'Nomor Induk Kependudukan (NIK) 16 digit',
             'Foto Kartu Tanda Penduduk (KTP)',
             'Tempat dan tanggal lahir',
             'Jenis kelamin',
             'Agama',
-            'Golongan darah',
-            'Status pernikahan',
-            'Pekerjaan',
+            'Golongan darah (opsional)',
+            'Status pernikahan (opsional)',
+            'Pekerjaan (opsional)',
             'Alamat lengkap, RT, RW, dan wilayah administratif hingga tingkat desa/kelurahan',
           ],
         },
         {
           title: 'Data pendidikan',
-          items: ['Pendidikan terakhir dan nama institusi pendidikan'],
+          items: ['Pendidikan terakhir dan nama institusi pendidikan (opsional)'],
         },
         {
           title: 'Data keanggotaan partai',
@@ -1022,7 +1022,7 @@ const simpan: Policy = {
         'Sebagian data yang kami kumpulkan tergolong <strong>data pribadi yang bersifat spesifik</strong> menurut Pasal 4 ayat (2) Undang-Undang Nomor 27 Tahun 2022 tentang Pelindungan Data Pribadi, sehingga memerlukan perlindungan lebih tinggi.',
       ],
       list: [
-        '<strong>Golongan darah</strong> merupakan data kesehatan. Data ini dikumpulkan karena tercantum pada KTP dan digunakan untuk kelengkapan administrasi keanggotaan.',
+        '<strong>Golongan darah</strong> merupakan data kesehatan. Pengisiannya opsional; jika Anda mengisinya, data ini digunakan untuk kelengkapan administrasi keanggotaan.',
         '<strong>Keanggotaan partai politik</strong> pada dirinya sendiri mengungkapkan pandangan politik Anda. Walaupun tidak disebut secara eksplisit dalam Pasal 4 ayat (2), kami memperlakukannya dengan kehati-hatian yang setara.',
         '<strong>Agama</strong> dikumpulkan karena tercantum pada KTP dan pada Kartu Tanda Anggota. Data ini tidak digunakan untuk penyaringan, penilaian, maupun penargetan apa pun.',
         '<strong>NIK dan foto KTP</strong> adalah pengidentifikasi kependudukan yang bersifat unik dan permanen, sehingga penyalahgunaannya berisiko tinggi.',

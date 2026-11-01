@@ -202,7 +202,7 @@ const terms: Policy = {
 const accountDeletion: Policy = {
   ...shared,
   effective: '28 Oktober 2026',
-  updated: '29 Oktober 2026',
+  updated: '1 November 2026',
   summary:
     'Cara mengajukan penghapusan akun simPAN, data apa yang dihapus, apa yang tetap ada tanpa identitas Anda, serta bagaimana permintaan Anda ditinjau.',
 
@@ -297,7 +297,7 @@ const accountDeletion: Policy = {
         'Anda tidak dapat lagi masuk ke Aplikasi dengan akun tersebut. Untuk menjadi anggota lagi, Anda perlu mendaftar ulang dan menunggu verifikasi.',
         'Penghapusan tidak dapat dibatalkan setelah selesai.',
       ],
-      note: 'Akun pengurus, administrator, dan kandidat yang masih memiliki tim relawan tidak dapat dihapus dari Aplikasi. Hubungi kami agar kewenangan dan data tim dialihkan terlebih dahulu.',
+      note: 'Akun pengurus, administrator, dan kandidat tidak dapat dihapus dari Aplikasi. Hubungi kami agar kewenangan dan data tim dialihkan terlebih dahulu.',
     },
     {
       id: 'kontak',
