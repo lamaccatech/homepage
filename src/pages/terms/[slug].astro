@@ -11,6 +11,13 @@ export const getStaticPaths = (() => {
 }) satisfies GetStaticPaths;
 
 const { policy } = Astro.props;
+
+// The page chrome follows the language the terms are written in, as the privacy pages do.
+const titles = {
+  en: { documentTitle: 'Terms of Service', eyebrow: 'Terms of service' },
+  id: { documentTitle: 'Ketentuan Layanan', eyebrow: 'Ketentuan layanan' },
+} as const;
+const { documentTitle, eyebrow } = titles[policy.lang];
 ---
 
-<LegalDocument policy={policy} documentTitle="Ketentuan Layanan" eyebrow="Ketentuan layanan" />
+<LegalDocument policy={policy} documentTitle={documentTitle} eyebrow={eyebrow} />

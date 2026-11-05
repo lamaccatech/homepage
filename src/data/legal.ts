@@ -8,6 +8,7 @@
  */
 import { getPolicy } from './privacy';
 import type { Policy } from './privacy';
+import { clientTerms } from './terms';
 
 const base = getPolicy('simpan');
 if (base === undefined) {
@@ -318,5 +319,5 @@ const accountDeletion: Policy = {
   ],
 };
 
-export const termsOfService: Policy[] = [terms];
+export const termsOfService: Policy[] = [terms, ...clientTerms];
 export const accountDeletions: Policy[] = [accountDeletion];

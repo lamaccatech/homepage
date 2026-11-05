@@ -9,6 +9,9 @@
  * `buildPolicy()` and only the genuinely country-divergent parts (statutory
  * identifiers, data residency, applicable law, regulator) are passed in.
  */
+import { processor } from './developer';
+import { pantauRelawanPrivacy } from './pantau-relawan';
+import { wakafyukPrivacy } from './wakafyuk';
 
 export interface PolicyGroup {
   title: string;
@@ -93,14 +96,6 @@ export const labels: Record<
     relatedHeading: (country) => `Mencari aplikasi ${country}?`,
     relatedCta: (app) => `Baca kebijakan ${app}`,
   },
-};
-
-/** The developer that operates the app on the controller's behalf. */
-const processor = {
-  name: 'PT Lamacca Kreatif Solusi',
-  address:
-    'Jl. SMA 14 No. 32, RT/RW 05/04, Cililitan, Kramat Jati, Jakarta Timur, DKI Jakarta 13640, Indonesia',
-  email: 'info@lamacca.co.id',
 };
 
 interface PolicyConfig {
@@ -1274,7 +1269,7 @@ const simpan: Policy = {
   ],
 };
 
-export const policies: Policy[] = [indonesia, malaysia, sds, simpan];
+export const policies: Policy[] = [indonesia, malaysia, sds, simpan, pantauRelawanPrivacy, wakafyukPrivacy];
 
 export function getPolicy(slug: string): Policy | undefined {
   return policies.find((p) => p.slug === slug);
